@@ -7,7 +7,7 @@
     tools:context=".ui.activity.LoginActivity">
 
     <TextView
-        android:id="@+id/main_text"
+        android:id="@+id/login_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"

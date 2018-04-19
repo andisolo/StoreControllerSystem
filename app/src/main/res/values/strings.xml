@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Store Controller System</string>
+    <string name="user_name">这里输入用户名</string>
+    <string name="password">这里输入密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
 </resources>

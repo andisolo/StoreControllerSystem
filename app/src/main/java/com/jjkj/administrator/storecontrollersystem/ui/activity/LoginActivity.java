@@ -1,9 +1,7 @@
 package com.jjkj.administrator.storecontrollersystem.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.presenter.LoginPresenter;
@@ -20,12 +18,6 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        findViewById(R.id.login_main).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            }
-        });
     }
 
     @Override
