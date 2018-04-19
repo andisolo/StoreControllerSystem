@@ -15,6 +15,11 @@ public class MainPresenter extends BasePresenter<MainView> {
 
     public void getData() {
         Log.i("MainPresenter", "getData");
-        mView.getData();
+        getMvpView().getData();
+    }
+
+    @Override
+    protected void initInject() {
+        getComponent().inject(this);
     }
 }

@@ -9,6 +9,8 @@ import dagger.Module;
 import dagger.Provides;
 
 /**
+ * 注入Presenter的module
+ *
  * @author Administrator
  */
 @Module
@@ -16,7 +18,7 @@ public class ActivityModule {
 
     @Singleton
     @Provides
-    LoginPresenter getPresenter() {
+    LoginPresenter getLoginPresenter() {
         return new LoginPresenter();
     }
 

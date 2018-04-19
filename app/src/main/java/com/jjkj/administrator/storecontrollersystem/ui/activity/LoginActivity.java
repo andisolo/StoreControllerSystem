@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity<LoginView, LoginPresenter> imple
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.getData();
+        getPresenter().getData();
     }
 
     @Override

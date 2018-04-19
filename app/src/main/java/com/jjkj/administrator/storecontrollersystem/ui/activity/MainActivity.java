@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         mMainText.setText("第二个activity");
-        mPresenter.getData();
+        getPresenter().getData();
     }
 
     @Override

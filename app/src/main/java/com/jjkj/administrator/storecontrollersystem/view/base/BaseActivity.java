@@ -44,4 +44,8 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
      * 注入当前Activity所需的依赖
      */
     protected abstract void initInject();
+
+    protected P getPresenter() {
+        return mPresenter;
+    }
 }
