@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_color_light"
+    android:background="@android:color/holo_green_dark"
     android:orientation="vertical">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -86,6 +86,7 @@
         android:background="@color/bg_color_blue">
 
         <TextView
+            android:id="@+id/login_register_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
@@ -96,6 +97,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/login_login_btn"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
