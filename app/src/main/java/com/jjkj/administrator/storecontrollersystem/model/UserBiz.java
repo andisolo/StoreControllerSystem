@@ -10,11 +10,9 @@ import javax.inject.Inject;
  * @author Administrator
  */
 public class UserBiz {
-    @Inject
-    public UserBiz() {
-    }
+
 
     public void getData() {
-        Log.i("UserBiz", "getData");
+        Log.i("UserBiz", "onLoadData");
     }
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.ExperienceAdapter;
+import com.jjkj.administrator.storecontrollersystem.entity.Order;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
@@ -29,10 +30,11 @@ import butterknife.Unbinder;
  * @description
  */
 public class ExperienceFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
-        MainView  {
+        MainView {
     @BindView(R.id.general_rcv)
     RecyclerView mGeneralRcv;
     Unbinder unbinder;
+    private ExperienceAdapter mAdapter;
 
     @Nullable
     @Override
@@ -45,22 +47,9 @@ public class ExperienceFragment extends BaseFragment<MainView, NormalSalesPresen
     }
 
     @Override
-    protected void initInject() {
-        getComponent().inject(this);
-    }
-
-    private void initView() {
-        List<String> data = new ArrayList<>();
-        ExperienceAdapter adapter = new ExperienceAdapter(R.layout.item_for_normal_sales, data);
-        mGeneralRcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter.isFirstOnly(false);
-        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mGeneralRcv.setAdapter(adapter);
-        List<String> strings = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-            strings.add("测试数据" + i);
-        }
-        adapter.addData(strings);
+    public void onResume() {
+        super.onResume();
+        getPresenter().getOrders();
     }
 
     @Override
@@ -70,7 +59,21 @@ public class ExperienceFragment extends BaseFragment<MainView, NormalSalesPresen
     }
 
     @Override
-    public void getData() {
+    protected void initInject() {
+        getComponent().inject(this);
+    }
 
+    private void initView() {
+        mAdapter = new ExperienceAdapter(R.layout.item_for_normal_sales, new ArrayList<>());
+        mGeneralRcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        mAdapter.isFirstOnly(false);
+        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mGeneralRcv.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void onLoadData(List<Order> orders) {
+        mAdapter.replaceData(orders);
     }
 }

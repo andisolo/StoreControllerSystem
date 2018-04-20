@@ -14,8 +14,7 @@ public class MainPresenter extends BasePresenter<MainView> {
     }
 
     public void getData() {
-        Log.i("MainPresenter", "getData");
-        getMvpView().getData();
+        Log.i("MainPresenter", "onLoadData");
     }
 
     @Override

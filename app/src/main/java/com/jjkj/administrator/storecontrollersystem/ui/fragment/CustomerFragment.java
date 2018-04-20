@@ -8,9 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.R;
+import com.jjkj.administrator.storecontrollersystem.entity.Order;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
+
+import java.util.List;
 
 /**
  * @author lenovo
@@ -31,8 +34,9 @@ public class CustomerFragment extends BaseFragment<MainView, NormalSalesPresente
         getComponent().inject(this);
     }
 
+
     @Override
-    public void getData() {
+    public void onLoadData(List<Order> orders) {
 
     }
 }

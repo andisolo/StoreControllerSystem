@@ -4,15 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.R;
+import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter;
+import com.jjkj.administrator.storecontrollersystem.entity.Order;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +30,7 @@ import butterknife.Unbinder;
  * @description
  */
 public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
-        MainView  {
+        MainView {
     @BindView(R.id.my_info_tbV)
     TabLayout mMyInfoTbV;
     @BindView(R.id.my_info_vp)
@@ -51,6 +57,10 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
         for (String tab : TABS) {
             mMyInfoTbV.addTab(mMyInfoTbV.newTab().setText(tab));
         }
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new DoSalesFragment());
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getFragmentManager(), fragments);
+        mMyInfoVp.setAdapter(adapter);
         mMyInfoTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener
                 (mMyInfoVp));
         mMyInfoVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mMyInfoTbV));
@@ -63,7 +73,7 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
     }
 
     @Override
-    public void getData() {
+    public void onLoadData(List<Order> orders) {
 
     }
 }

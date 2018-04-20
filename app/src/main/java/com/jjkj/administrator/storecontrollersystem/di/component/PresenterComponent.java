@@ -5,6 +5,7 @@ import com.jjkj.administrator.storecontrollersystem.di.module.PresenterModule;
 import com.jjkj.administrator.storecontrollersystem.presenter.LoginPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.MainPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
+import com.jjkj.administrator.storecontrollersystem.presenter.PartnerPresenter;
 
 import javax.inject.Singleton;
 
@@ -33,9 +34,16 @@ public interface PresenterComponent {
     void inject(MainPresenter presenter);
 
     /**
-     * 注入MainPresenter所需的依赖
+     * 注入NormalSalesPresenter所需的依赖
      *
      * @param presenter presenter
      */
     void inject(NormalSalesPresenter presenter);
+
+    /**
+     * 注入PartnerPresenter所需的依赖
+     *
+     * @param presenter presenter
+     */
+    void inject(PartnerPresenter presenter);
 }

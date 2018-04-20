@@ -1,12 +1,7 @@
 package com.jjkj.administrator.storecontrollersystem.view.base;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.di.component.DaggerFragmentComponent;
 import com.jjkj.administrator.storecontrollersystem.di.component.FragmentComponent;
@@ -24,15 +19,15 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
     @Inject
     protected P mPresenter;
 
-    @Nullable
+
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public void onAttach(Context context) {
         initInject();
         if (mPresenter != null) {
             mPresenter.attachView((V) this);
         }
-        return super.onCreateView(inflater, container, savedInstanceState);
+        super.onAttach(context);
     }
 
     /**

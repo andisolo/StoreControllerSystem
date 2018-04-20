@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.SalesViewPagerAdapter;
+import com.jjkj.administrator.storecontrollersystem.entity.Order;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
@@ -73,7 +74,7 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
     }
 
     @Override
-    public void getData() {
+    public void onLoadData(List<Order> orders) {
 
     }
 }

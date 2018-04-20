@@ -23,7 +23,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void getData() {
-        Log.i("LoginPresenter", "getData");
+        Log.i("LoginPresenter", "onLoadData");
         mUserBiz.getData();
         getMvpView().onGetData();
     }

@@ -27,11 +27,13 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         if (mPresenter != null) {
             mPresenter.attachView((V) this);
         }
+        addActivity(this);
     }
 
     @Override
     protected void onDestroy() {
         mPresenter.detachView();
+        delActivity(this);
         super.onDestroy();
     }
 

@@ -1,13 +1,18 @@
 package com.jjkj.administrator.storecontrollersystem.dao;
 
+import java.util.List;
+import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
+import org.greenrobot.greendao.internal.SqlUtils;
 import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
+
+import com.jjkj.administrator.storecontrollersystem.entity.User;
 
 import com.jjkj.administrator.storecontrollersystem.entity.Order;
 
@@ -24,12 +29,15 @@ public class OrderDao extends AbstractDao<Order, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, long.class, "id", true, "_id");
-        public final static Property OrderNumber = new Property(1, long.class, "orderNumber", false, "ORDER_NUMBER");
-        public final static Property Salesman = new Property(2, String.class, "salesman", false, "SALESMAN");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
+        public final static Property OrderNumber = new Property(1, int.class, "orderNumber", false, "ORDER_NUMBER");
+        public final static Property UserId = new Property(2, Long.class, "userId", false, "USER_ID");
         public final static Property CustomerName = new Property(3, String.class, "customerName", false, "CUSTOMER_NAME");
         public final static Property Price = new Property(4, int.class, "price", false, "PRICE");
+        public final static Property Type = new Property(5, int.class, "type", false, "TYPE");
     }
+
+    private DaoSession daoSession;
 
 
     public OrderDao(DaoConfig config) {
@@ -38,17 +46,19 @@ public class OrderDao extends AbstractDao<Order, Long> {
     
     public OrderDao(DaoConfig config, DaoSession daoSession) {
         super(config, daoSession);
+        this.daoSession = daoSession;
     }
 
     /** Creates the underlying database table. */
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ORDER\" (" + //
-                "\"_id\" INTEGER PRIMARY KEY NOT NULL ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"ORDER_NUMBER\" INTEGER NOT NULL ," + // 1: orderNumber
-                "\"SALESMAN\" TEXT," + // 2: salesman
+                "\"USER_ID\" INTEGER," + // 2: userId
                 "\"CUSTOMER_NAME\" TEXT," + // 3: customerName
-                "\"PRICE\" INTEGER NOT NULL );"); // 4: price
+                "\"PRICE\" INTEGER NOT NULL ," + // 4: price
+                "\"TYPE\" INTEGER NOT NULL );"); // 5: type
     }
 
     /** Drops the underlying database table. */
@@ -60,12 +70,16 @@ public class OrderDao extends AbstractDao<Order, Long> {
     @Override
     protected final void bindValues(DatabaseStatement stmt, Order entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindLong(2, entity.getOrderNumber());
  
-        String salesman = entity.getSalesman();
-        if (salesman != null) {
-            stmt.bindString(3, salesman);
+        Long userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindLong(3, userId);
         }
  
         String customerName = entity.getCustomerName();
@@ -73,17 +87,22 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(4, customerName);
         }
         stmt.bindLong(5, entity.getPrice());
+        stmt.bindLong(6, entity.getType());
     }
 
     @Override
     protected final void bindValues(SQLiteStatement stmt, Order entity) {
         stmt.clearBindings();
-        stmt.bindLong(1, entity.getId());
+ 
+        Long id = entity.getId();
+        if (id != null) {
+            stmt.bindLong(1, id);
+        }
         stmt.bindLong(2, entity.getOrderNumber());
  
-        String salesman = entity.getSalesman();
-        if (salesman != null) {
-            stmt.bindString(3, salesman);
+        Long userId = entity.getUserId();
+        if (userId != null) {
+            stmt.bindLong(3, userId);
         }
  
         String customerName = entity.getCustomerName();
@@ -91,32 +110,41 @@ public class OrderDao extends AbstractDao<Order, Long> {
             stmt.bindString(4, customerName);
         }
         stmt.bindLong(5, entity.getPrice());
+        stmt.bindLong(6, entity.getType());
+    }
+
+    @Override
+    protected final void attachEntity(Order entity) {
+        super.attachEntity(entity);
+        entity.__setDaoSession(daoSession);
     }
 
     @Override
     public Long readKey(Cursor cursor, int offset) {
-        return cursor.getLong(offset + 0);
+        return cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0);
     }    
 
     @Override
     public Order readEntity(Cursor cursor, int offset) {
         Order entity = new Order( //
-            cursor.getLong(offset + 0), // id
-            cursor.getLong(offset + 1), // orderNumber
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // salesman
+            cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
+            cursor.getInt(offset + 1), // orderNumber
+            cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2), // userId
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // customerName
-            cursor.getInt(offset + 4) // price
+            cursor.getInt(offset + 4), // price
+            cursor.getInt(offset + 5) // type
         );
         return entity;
     }
      
     @Override
     public void readEntity(Cursor cursor, Order entity, int offset) {
-        entity.setId(cursor.getLong(offset + 0));
-        entity.setOrderNumber(cursor.getLong(offset + 1));
-        entity.setSalesman(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
+        entity.setOrderNumber(cursor.getInt(offset + 1));
+        entity.setUserId(cursor.isNull(offset + 2) ? null : cursor.getLong(offset + 2));
         entity.setCustomerName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setPrice(cursor.getInt(offset + 4));
+        entity.setType(cursor.getInt(offset + 5));
      }
     
     @Override
@@ -136,7 +164,7 @@ public class OrderDao extends AbstractDao<Order, Long> {
 
     @Override
     public boolean hasKey(Order entity) {
-        throw new UnsupportedOperationException("Unsupported for entities with a non-null key");
+        return entity.getId() != null;
     }
 
     @Override
@@ -144,4 +172,95 @@ public class OrderDao extends AbstractDao<Order, Long> {
         return true;
     }
     
+    private String selectDeep;
+
+    protected String getSelectDeep() {
+        if (selectDeep == null) {
+            StringBuilder builder = new StringBuilder("SELECT ");
+            SqlUtils.appendColumns(builder, "T", getAllColumns());
+            builder.append(',');
+            SqlUtils.appendColumns(builder, "T0", daoSession.getUserDao().getAllColumns());
+            builder.append(" FROM ORDER T");
+            builder.append(" LEFT JOIN USER T0 ON T.\"USER_ID\"=T0.\"_id\"");
+            builder.append(' ');
+            selectDeep = builder.toString();
+        }
+        return selectDeep;
+    }
+    
+    protected Order loadCurrentDeep(Cursor cursor, boolean lock) {
+        Order entity = loadCurrent(cursor, 0, lock);
+        int offset = getAllColumns().length;
+
+        User salesman = loadCurrentOther(daoSession.getUserDao(), cursor, offset);
+        entity.setSalesman(salesman);
+
+        return entity;    
+    }
+
+    public Order loadDeep(Long key) {
+        assertSinglePk();
+        if (key == null) {
+            return null;
+        }
+
+        StringBuilder builder = new StringBuilder(getSelectDeep());
+        builder.append("WHERE ");
+        SqlUtils.appendColumnsEqValue(builder, "T", getPkColumns());
+        String sql = builder.toString();
+        
+        String[] keyArray = new String[] { key.toString() };
+        Cursor cursor = db.rawQuery(sql, keyArray);
+        
+        try {
+            boolean available = cursor.moveToFirst();
+            if (!available) {
+                return null;
+            } else if (!cursor.isLast()) {
+                throw new IllegalStateException("Expected unique result, but count was " + cursor.getCount());
+            }
+            return loadCurrentDeep(cursor, true);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+    /** Reads all available rows from the given cursor and returns a list of new ImageTO objects. */
+    public List<Order> loadAllDeepFromCursor(Cursor cursor) {
+        int count = cursor.getCount();
+        List<Order> list = new ArrayList<Order>(count);
+        
+        if (cursor.moveToFirst()) {
+            if (identityScope != null) {
+                identityScope.lock();
+                identityScope.reserveRoom(count);
+            }
+            try {
+                do {
+                    list.add(loadCurrentDeep(cursor, false));
+                } while (cursor.moveToNext());
+            } finally {
+                if (identityScope != null) {
+                    identityScope.unlock();
+                }
+            }
+        }
+        return list;
+    }
+    
+    protected List<Order> loadDeepAllAndCloseCursor(Cursor cursor) {
+        try {
+            return loadAllDeepFromCursor(cursor);
+        } finally {
+            cursor.close();
+        }
+    }
+    
+
+    /** A raw-style query where you can pass any WHERE clause and arguments. */
+    public List<Order> queryDeep(String where, String... selectionArg) {
+        Cursor cursor = db.rawQuery(getSelectDeep() + where, selectionArg);
+        return loadDeepAllAndCloseCursor(cursor);
+    }
+ 
 }

@@ -5,10 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter;
+import com.jjkj.administrator.storecontrollersystem.entity.Order;
 import com.jjkj.administrator.storecontrollersystem.presenter.MainPresenter;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.CustomerFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.MyInfoFragment;
@@ -65,8 +65,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         mMainVP.setAdapter(adapter);
     }
 
+
     @Override
-    public void getData() {
-        Log.i("MainActivity", "getData");
+    public void onLoadData(List<Order> orders) {
+
     }
 }

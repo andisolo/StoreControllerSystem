@@ -9,26 +9,29 @@ import org.greenrobot.greendao.annotation.Generated;
  */
 @Entity
 public class OrderItem {
-    @Id
-    private int id;
+    @Id()
+    private Long orderItemID;
     private int number;
     private String goods;
     private int price;
-    @Generated(hash = 1815799288)
-    public OrderItem(int id, int number, String goods, int price) {
-        this.id = id;
+    private Long orderId;
+    @Generated(hash = 16912071)
+    public OrderItem(Long orderItemID, int number, String goods, int price,
+            Long orderId) {
+        this.orderItemID = orderItemID;
         this.number = number;
         this.goods = goods;
         this.price = price;
+        this.orderId = orderId;
     }
     @Generated(hash = 403153068)
     public OrderItem() {
     }
-    public int getId() {
-        return this.id;
+    public Long getOrderItemID() {
+        return this.orderItemID;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setOrderItemID(Long orderItemID) {
+        this.orderItemID = orderItemID;
     }
     public int getNumber() {
         return this.number;
@@ -47,5 +50,11 @@ public class OrderItem {
     }
     public void setPrice(int price) {
         this.price = price;
+    }
+    public Long getOrderId() {
+        return this.orderId;
+    }
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
 }

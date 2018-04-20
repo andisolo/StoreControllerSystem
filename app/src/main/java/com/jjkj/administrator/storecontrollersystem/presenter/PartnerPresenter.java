@@ -1,10 +1,9 @@
 package com.jjkj.administrator.storecontrollersystem.presenter;
 
-import com.jjkj.administrator.storecontrollersystem.entity.Order;
-import com.jjkj.administrator.storecontrollersystem.entity.OrderItem;
+import com.jjkj.administrator.storecontrollersystem.entity.User;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
-import com.jjkj.administrator.storecontrollersystem.view.MainView;
+import com.jjkj.administrator.storecontrollersystem.view.PartnerView;
 
 import java.util.List;
 
@@ -17,22 +16,22 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author Administrator
  */
-public class NormalSalesPresenter extends BasePresenter<MainView> {
+public class PartnerPresenter extends BasePresenter<PartnerView> {
     @Inject
     SalesBiz mSalesBiz;
     @Inject
     CompositeDisposable compositeDisposable;
 
-    public void getOrders() {
-        mSalesBiz.getOrders(new Observer<List<Order>>() {
+    public void getUsers() {
+        mSalesBiz.getUsers(new Observer<List<User>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
             }
 
             @Override
-            public void onNext(List<Order> orders) {
-                getMvpView().onLoadData(orders);
+            public void onNext(List<User> users) {
+                getMvpView().onLoadUser(users);
             }
 
             @Override
@@ -42,21 +41,21 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onComplete() {
-                getMvpView().showInfo("成功加载");
+                getMvpView().showInfo("加载完成");
             }
         });
     }
 
-    public void addOrders(List<OrderItem> orderItems, String name) {
-        mSalesBiz.addOrders(new Observer<String>() {
+    public void addUser(User user) {
+        mSalesBiz.addUsers(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
             }
 
             @Override
-            public void onNext(String orders) {
-                getMvpView().showInfo(orders);
+            public void onNext(String info) {
+                getMvpView().showInfo(info);
             }
 
             @Override
@@ -66,9 +65,38 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
 
             @Override
             public void onComplete() {
-
+                getMvpView().onSucceed("刷新数据");
             }
-        }, orderItems, name);
+        }, user);
+    }
+
+    public void deleteUser(User user) {
+        mSalesBiz.deleteUsers(new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                compositeDisposable.add(d);
+            }
+
+            @Override
+            public void onNext(String info) {
+                getMvpView().showInfo(info);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getMvpView().showInfo(e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                getMvpView().onSucceed("刷新数据");
+            }
+        }, user);
+    }
+
+    @Override
+    protected void initInject() {
+        getComponent().inject(this);
     }
 
     @Override
@@ -77,10 +105,5 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
             compositeDisposable.clear();
         }
         super.detachView();
-    }
-
-    @Override
-    protected void initInject() {
-        getComponent().inject(this);
     }
 }
