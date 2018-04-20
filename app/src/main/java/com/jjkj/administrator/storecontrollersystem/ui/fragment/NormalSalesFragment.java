@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.NormalSalesAdapter;
+import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
+import com.jjkj.administrator.storecontrollersystem.view.MainView;
+import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,38 +29,49 @@ import butterknife.Unbinder;
  * Created on 2018/4/19.
  * @description
  */
-public class NormalSalesFragment extends Fragment {
-	@BindView(R.id.general_rcv)
-	RecyclerView mGeneralRcv;
-	Unbinder unbinder;
+public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
+        MainView  {
+    @BindView(R.id.general_rcv)
+    RecyclerView mGeneralRcv;
+    Unbinder unbinder;
 
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-	                         @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.general_for_rcv, container, false);
-		unbinder = ButterKnife.bind(this, view);
-		initView();
-		return view;
-	}
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.general_for_rcv, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        initView();
+        return view;
+    }
 
-	private void initView() {
-		List<String> data = new ArrayList<>();
-		NormalSalesAdapter adapter = new NormalSalesAdapter(R.layout.item_for_normal_sales, data);
-		mGeneralRcv.setLayoutManager(new LinearLayoutManager(getContext()));
-		adapter.isFirstOnly(false);
-		adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-		mGeneralRcv.setAdapter(adapter);
-		List<String> strings = new ArrayList<>();
-		for (int i = 0; i < 50; i++) {
-			strings.add("测试数据" + i);
-		}
-		adapter.addData(strings);
-	}
+    @Override
+    protected void initInject() {
+        getComponent().inject(this);
+    }
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		unbinder.unbind();
-	}
+    private void initView() {
+        List<String> data = new ArrayList<>();
+        NormalSalesAdapter adapter = new NormalSalesAdapter(R.layout.item_for_normal_sales, data);
+        mGeneralRcv.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter.isFirstOnly(false);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        mGeneralRcv.setAdapter(adapter);
+        List<String> strings = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            strings.add("测试数据" + i);
+        }
+        adapter.addData(strings);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void getData() {
+
+    }
 }

@@ -12,15 +12,17 @@
         <activity
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             android:name=".ui.activity.LoginActivity">
+
+        </activity>
+        <activity
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:name=".ui.activity.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            android:name=".ui.activity.MainActivity" />
     </application>
 
 </manifest>

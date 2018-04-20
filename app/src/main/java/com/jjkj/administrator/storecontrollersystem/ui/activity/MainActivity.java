@@ -28,45 +28,45 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends BaseActivity<MainView, MainPresenter> implements MainView {
 
-	@BindView(R.id.main_vP)
-	ViewPager mMainVP;
-	@BindView(R.id.main_tabV)
-	TabLayout mMainTabV;
-	private static final String[] TABS = {"销售信息", "售后信息", "我的伙伴", "我的信息"};
+    private static final String[] TABS = {"销售信息", "售后信息", "我的伙伴", "我的信息"};
+    @BindView(R.id.main_vP)
+    ViewPager mMainVP;
+    @BindView(R.id.main_tabV)
+    TabLayout mMainTabV;
 
-	@Override
-	protected void initInject() {
-		getComponent().inject(this);
-	}
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        initView();
+    }
 
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		ButterKnife.bind(this);
-		initView();
-	}
+    @Override
+    protected void initInject() {
+        getComponent().inject(this);
+    }
 
-	private void initView() {
-		for (String tab : TABS) {
-			TabLayout.Tab tab1 = mMainTabV.newTab();
-			tab1.setText(tab);
-			mMainTabV.addTab(tab1);
-		}
-		mMainTabV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mMainVP));
-		mMainVP.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mMainTabV));
-		List<Fragment> fragments = new ArrayList<>();
-		fragments.add(new SalesFragment());
-		fragments.add(new CustomerFragment());
-		fragments.add(new PartnerFragment());
-		fragments.add(new MyInfoFragment());
-		MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(),
-				fragments);
-		mMainVP.setAdapter(adapter);
-	}
+    private void initView() {
+        for (String tab : TABS) {
+            TabLayout.Tab tab1 = mMainTabV.newTab();
+            tab1.setText(tab);
+            mMainTabV.addTab(tab1);
+        }
+        mMainTabV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mMainVP));
+        mMainVP.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mMainTabV));
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new SalesFragment());
+        fragments.add(new CustomerFragment());
+        fragments.add(new PartnerFragment());
+        fragments.add(new MyInfoFragment());
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(),
+                fragments);
+        mMainVP.setAdapter(adapter);
+    }
 
-	@Override
-	public void getData() {
-		Log.i("MainActivity", "getData");
-	}
+    @Override
+    public void getData() {
+        Log.i("MainActivity", "getData");
+    }
 }

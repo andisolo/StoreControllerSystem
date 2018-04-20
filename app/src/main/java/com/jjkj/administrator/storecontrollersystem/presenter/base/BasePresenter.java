@@ -18,6 +18,11 @@ public abstract class BasePresenter<V extends BaseView> {
         this.mView = mView;
     }
 
+    /**
+     * 初始化对象注入
+     */
+    protected abstract void initInject();
+
     public void detachView() {
         mView = null;
     }
@@ -25,11 +30,6 @@ public abstract class BasePresenter<V extends BaseView> {
     protected PresenterComponent getComponent() {
         return DaggerPresenterComponent.builder().build();
     }
-
-    /**
-     * 初始化对象注入
-     */
-    protected abstract void initInject();
 
     protected V getMvpView() {
         return mView;

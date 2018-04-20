@@ -12,20 +12,20 @@ import java.util.List;
  * @description adapter
  */
 public class MainViewPagerAdapter extends FragmentStatePagerAdapter {
-	private List<Fragment> mFragments;
+    private List<Fragment> mFragments;
 
-	public MainViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
-		super(fm);
-		this.mFragments = fragments;
-	}
+    public MainViewPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
+        super(fm);
+        this.mFragments = fragments;
+    }
 
-	@Override
-	public Fragment getItem(int position) {
-		return mFragments.get(position);
-	}
+    @Override
+    public Fragment getItem(int position) {
+        return mFragments.get(position);
+    }
 
-	@Override
-	public int getCount() {
-		return mFragments.size();
-	}
+    @Override
+    public int getCount() {
+        return mFragments.size();
+    }
 }

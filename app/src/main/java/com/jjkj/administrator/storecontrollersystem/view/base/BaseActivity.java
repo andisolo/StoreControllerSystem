@@ -29,11 +29,6 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
         }
     }
 
-
-    protected ActivityComponent getComponent() {
-        return DaggerActivityComponent.builder().build();
-    }
-
     @Override
     protected void onDestroy() {
         mPresenter.detachView();
@@ -44,6 +39,10 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
      * 注入当前Activity所需的依赖
      */
     protected abstract void initInject();
+
+    protected ActivityComponent getComponent() {
+        return DaggerActivityComponent.builder().build();
+    }
 
     protected P getPresenter() {
         return mPresenter;

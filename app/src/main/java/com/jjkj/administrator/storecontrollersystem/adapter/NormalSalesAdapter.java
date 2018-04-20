@@ -14,14 +14,14 @@ import java.util.List;
  * @description
  */
 public class NormalSalesAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
-	public NormalSalesAdapter(int layoutResId, @Nullable List<String> data) {
-		super(layoutResId, data);
-	}
+    public NormalSalesAdapter(int layoutResId, @Nullable List<String> data) {
+        super(layoutResId, data);
+    }
 
-	@Override
-	protected void convert(BaseViewHolder helper, String item) {
-		helper.setText(R.id.item_for_normal_sales_name, item);
-		helper.setText(R.id.item_for_normal_sales_money, item);
-		helper.setText(R.id.item_for_normal_sales_salesman, item);
-	}
+    @Override
+    protected void convert(BaseViewHolder helper, String item) {
+        helper.setText(R.id.item_for_normal_sales_name, item);
+        helper.setText(R.id.item_for_normal_sales_money, item);
+        helper.setText(R.id.item_for_normal_sales_salesman, item);
+    }
 }
