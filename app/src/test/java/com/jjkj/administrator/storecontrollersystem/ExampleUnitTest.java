@@ -12,6 +12,5 @@ import java.io.IOException;
 public class ExampleUnitTest  {
     @Test
     public void addition_isCorrect() throws IOException {
-
     }
 }
