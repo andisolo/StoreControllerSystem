@@ -12,7 +12,7 @@ public class ToastUtils {
     private ToastUtils() {
     }
 
-    private static Toast mToast;
+    private volatile static Toast mToast;
 
     public static void showToast(Context context, String info) {
         if (mToast != null) {

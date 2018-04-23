@@ -1,5 +1,6 @@
 package com.jjkj.administrator.storecontrollersystem.utils.requset;
 
+import com.jjkj.administrator.storecontrollersystem.bean.ShopInfo;
 import com.jjkj.administrator.storecontrollersystem.utils.pull.PullXmlElement;
 import com.jjkj.administrator.storecontrollersystem.utils.pull.PullXmlElementWrapper;
 import com.jjkj.administrator.storecontrollersystem.utils.pull.PullXmlNameSpace;
@@ -43,10 +44,10 @@ public class GetPosBalaceDate {
     @PullXmlElement(tagId = 2, tagName = "returnMessage")
     private String returnMessage;
 
-    public GetPosBalaceDate() {
-        this.userName = "001";
-        this.password = "regent";
-        this.customerId = "JMD2263";
+    public GetPosBalaceDate(String storeNumber) {
+        this.userName = ShopInfo.SUPER.username;
+        this.password = ShopInfo.SUPER.password;
+        this.customerId = storeNumber;
         this.returnId = "1";
         this.returnMessage = "";
     }

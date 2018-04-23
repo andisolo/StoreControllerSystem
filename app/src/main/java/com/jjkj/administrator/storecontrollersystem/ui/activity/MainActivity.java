@@ -5,8 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Base64;
-import android.util.Log;
 
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter;
@@ -19,20 +17,14 @@ import com.jjkj.administrator.storecontrollersystem.ui.fragment.PartnerFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesFragment;
 import com.jjkj.administrator.storecontrollersystem.utils.Retrofit2Utils;
 import com.jjkj.administrator.storecontrollersystem.utils.RxHelper;
-import com.jjkj.administrator.storecontrollersystem.utils.pull.SoapResponse;
-import com.jjkj.administrator.storecontrollersystem.utils.requset.BuisnessManSelectByID;
-import com.jjkj.administrator.storecontrollersystem.utils.requset.GetPosBalaceDate;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.functions.Consumer;
 
 /**
  * @author Administrator
@@ -76,41 +68,6 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getSupportFragmentManager(),
                 fragments);
         mMainVP.setAdapter(adapter);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        BuisnessManSelectByID request = new BuisnessManSelectByID();
-        serviceApi.getBuisnessManSelectAll(request)
-                .map(SoapResponse::getResult)
-                .compose(bindOb())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String s) throws Exception {
-                        Pattern pattern = Pattern.compile(REGEX);
-                        Matcher matcher = pattern.matcher(s);
-                        if (matcher.find()) {
-                            Matcher matcher1 = pattern.matcher(matcher.group(1));
-                            if (matcher1.find()) {
-                                String ret = matcher1.group(1);
-                                byte[] decode = Base64.decode(ret, Base64.DEFAULT);
-                                Log.i("MainActivity", ret);
-                                Log.i("MainActivity", new String(decode,"utf-8"));
-                            }
-                        }
-                    }
-                });
-
-    }
-
-
-    private void test1() {
-        GetPosBalaceDate request = new GetPosBalaceDate();
-        serviceApi.getSettlementDate(request)
-                .compose(bindOb())
-                .map(SoapResponse::getResult)
-                .subscribe(s -> Log.i("MainActivity", s));
     }
 
     @Override

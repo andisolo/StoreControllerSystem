@@ -11,5 +11,10 @@
     <string name="goods_price">合计价格</string>
     <string name="goods_number">商品数量</string>
     <string name="done">确认</string>
+    <string name="add">添加</string>
     <string name="cancel">取消</string>
+    <string name="sch_btn">查询</string>
+    <string name="balance">日结</string>
+    <string name="shop_tip">这里输入需要查询的店铺号码</string>
+    <string name="vip_num">会员卡号</string>
 </resources>

@@ -22,10 +22,10 @@ import com.jjkj.administrator.storecontrollersystem.utils.pull.PullXmlSpaceNameL
         @PullXmlSpaceNameList(nameUrl = "http://www.w3.org/2001/XMLSchema", prefix = "xsd"),
 
 })
-public class BuisnessManSelectByID {
+public class GetSalesManList {
     @PullXmlSoapHeader
     @PullXmlElementWrapper(tagName = "CredentialSoapHeader", attributeName = "xmlns",
-            attributeValue = "http://tempuri.org/")
+            attributeValue = "http://www.myregent.cn/")
     @PullXmlElement(tagId = 0, tagName = "UserName")
     private String userName;
     @PullXmlSoapHeader
@@ -33,14 +33,19 @@ public class BuisnessManSelectByID {
     private String password;
 
     @PullXmlSoapBody
-    @PullXmlElementWrapper(tagName = "BuisnessManSelectByID", attributeName = "xmlns",
-            attributeValue = "http://tempuri.org/")
-    @PullXmlElement(tagId = 0, tagName = "buisnessManID")
-    private String buisnessManID;
+    @PullXmlElementWrapper(tagName = "GetSalesManListByFilter", attributeName = "xmlns",
+            attributeValue = "http://www.myregent.cn/")
+    @PullXmlElement(tagId = 0, tagName = "returnId")
+    private String returnId;
+    @PullXmlSoapBody
+    @PullXmlElementWrapper(tagName = "filter")
+    @PullXmlElement(tagId = 1, tagName = "returnMessage")
+    private String returnMessage;
 
-    public BuisnessManSelectByID() {
+    public GetSalesManList() {
         this.userName = ShopInfo.SUPER.username;
         this.password = ShopInfo.SUPER.password;
-        this.buisnessManID = "77504";
+        this.returnId = "1";
+        this.returnMessage = "";
     }
 }

@@ -36,7 +36,7 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
     @BindView(R.id.my_info_vp)
     ViewPager mMyInfoVp;
     Unbinder unbinder;
-    public static final String[] TABS = {"销售登记", "我的信息"};
+    public static final String[] TABS = {"销售登记", "日结管理", "我的信息"};
 
     @Nullable
     @Override
@@ -46,6 +46,11 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
         unbinder = ButterKnife.bind(this, view);
         initView();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -59,7 +64,10 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
         }
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new DoSalesFragment());
-        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getFragmentManager(), fragments);
+        fragments.add(new ShopFragment());
+        fragments.add(new MySelfFragment());
+        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getChildFragmentManager(),
+                fragments);
         mMyInfoVp.setAdapter(adapter);
         mMyInfoTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener
                 (mMyInfoVp));

@@ -30,13 +30,14 @@ import butterknife.Unbinder;
  * @description
  */
 public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
-        MainView  {
+        MainView {
     public static final String[] TABS = {"正常销售", "活动销售", "体验明细"};
     @BindView(R.id.sale_tbV)
     TabLayout mSaleTbV;
     @BindView(R.id.sale_vp)
     ViewPager mSaleVp;
     Unbinder unbinder;
+    private List<Fragment> mFragments;
 
     @Nullable
     @Override
@@ -59,11 +60,11 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
         }
         mSaleTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mSaleVp));
         mSaleVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mSaleTbV));
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new NormalSalesFragment());
-        fragments.add(new SalesPromotionFragment());
-        fragments.add(new ExperienceFragment());
-        SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getFragmentManager(), fragments);
+        mFragments = new ArrayList<>();
+        mFragments.add(new NormalSalesFragment());
+        mFragments.add(new SalesPromotionFragment());
+        mFragments.add(new ExperienceFragment());
+        SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getChildFragmentManager(), mFragments);
         mSaleVp.setAdapter(adapter);
     }
 

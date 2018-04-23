@@ -14,4 +14,6 @@ public @interface PullXmlElement {
     String tagName();
 
     int tagId();
+
+    boolean isNeed() default true;
 }

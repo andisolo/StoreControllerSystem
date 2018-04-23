@@ -1,6 +1,7 @@
 package com.jjkj.administrator.storecontrollersystem.view.base;
 
-import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.jjkj.administrator.storecontrollersystem.di.component.DaggerFragmentComponent;
@@ -19,16 +20,15 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
     @Inject
     protected P mPresenter;
 
-
-
     @Override
-    public void onAttach(Context context) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         initInject();
         if (mPresenter != null) {
             mPresenter.attachView((V) this);
         }
-        super.onAttach(context);
+        super.onCreate(savedInstanceState);
     }
+
 
     /**
      * 注入当前Fragment所需的依赖

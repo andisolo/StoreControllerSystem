@@ -1,15 +1,13 @@
 package com.jjkj.administrator.storecontrollersystem.app;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 /**
  * @author Administrator
  */
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     private static Context sContext;
-
-
     @Override
     public void onCreate() {
         super.onCreate();

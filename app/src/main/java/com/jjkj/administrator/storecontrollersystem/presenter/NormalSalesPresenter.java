@@ -71,6 +71,8 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
         }, orderItems, name);
     }
 
+
+
     @Override
     public void detachView() {
         if (compositeDisposable != null) {

@@ -1,7 +1,6 @@
 package com.jjkj.administrator.storecontrollersystem.ui.fragment;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
@@ -56,7 +54,7 @@ public class PartnerFragment extends BaseFragment<PartnerView, PartnerPresenter>
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().getUsers();
+        getPresenter().getSelesMan();
     }
 
     @Override
@@ -71,32 +69,7 @@ public class PartnerFragment extends BaseFragment<PartnerView, PartnerPresenter>
         mAdapter = new PartnerAdapter(R.layout.item_for_partner_rcv, new
                 ArrayList<>());
         mAdapter.isFirstOnly(false);
-        mAdapter.setOnItemLongClickListener((adapter, view, position) -> {
-            getPresenter().deleteUser(mAdapter.getData().get(position));
-            return true;
-        });
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        View footView = getLayoutInflater().inflate(R.layout.foot_view_for_rcv_add, null);
-        mAdapter.addFooterView(footView);
-        mPartnerRcv.setAdapter(mAdapter);
-        footView.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            View view = getLayoutInflater().inflate(R.layout.item_for_dialog_add_partner, null);
-            EditText name = view.findViewById(R.id.item_for_dialog_name);
-            EditText age = view.findViewById(R.id.item_for_dialog_age);
-            EditText phone = view.findViewById(R.id.item_for_dialog_phone);
-            builder.setTitle("添加新伙伴").setView(view);
-            builder.setPositiveButton("确认", (dialog, which) -> {
-                User user = new User();
-                user.setName(name.getText().toString());
-                user.setAge(Integer.valueOf(age.getText().toString()));
-                user.setPhoneNum(phone.getText().toString());
-                getPresenter().addUser(user);
-            });
-            builder.setNegativeButton("取消", (dialog, which) -> dialog.cancel());
-            builder.show();
-
-        });
         mPartnerSwl.setOnRefreshListener(() -> getPresenter().getUsers());
     }
 

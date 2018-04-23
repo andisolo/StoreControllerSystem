@@ -7,31 +7,44 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="65dp"
+        android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/item_for_general_rcv_do_sales_goods"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:hint="@string/goods_name"
-            android:inputType="text" />
-
-        <EditText
-            android:id="@+id/item_for_general_rcv_do_sales_number"
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/goods_number"
-            android:inputType="number" />
+            android:hint="@string/goods_name">
 
-        <EditText
-            android:id="@+id/item_for_general_rcv_do_sales_price"
+            <EditText
+                android:id="@+id/item_for_general_rcv_do_sales_goods"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="@string/goods_price"
-            android:inputType="number" />
+            android:hint="@string/goods_number">
+
+            <EditText
+                android:id="@+id/item_for_general_rcv_do_sales_price"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/goods_price">
+
+            <EditText
+                android:id="@+id/item_for_general_rcv_do_sales_number"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </android.support.design.widget.TextInputLayout>
 
 
     </LinearLayout>

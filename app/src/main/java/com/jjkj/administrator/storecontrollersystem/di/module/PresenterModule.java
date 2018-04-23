@@ -1,5 +1,6 @@
 package com.jjkj.administrator.storecontrollersystem.di.module;
 
+import com.jjkj.administrator.storecontrollersystem.model.NetWorkBiz;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.model.UserBiz;
 
@@ -24,6 +25,12 @@ public class PresenterModule {
     @Provides
     SalesBiz getSalesBiz() {
         return new SalesBiz();
+    }
+
+    @Singleton
+    @Provides
+    NetWorkBiz getNetWorkBiz() {
+        return new NetWorkBiz();
     }
 
     @Singleton

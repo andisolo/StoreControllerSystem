@@ -1,6 +1,9 @@
 package com.jjkj.administrator.storecontrollersystem.presenter;
 
+import android.util.Log;
+
 import com.jjkj.administrator.storecontrollersystem.entity.User;
+import com.jjkj.administrator.storecontrollersystem.model.NetWorkBiz;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
 import com.jjkj.administrator.storecontrollersystem.view.PartnerView;
@@ -19,6 +22,8 @@ import io.reactivex.disposables.Disposable;
 public class PartnerPresenter extends BasePresenter<PartnerView> {
     @Inject
     SalesBiz mSalesBiz;
+    @Inject
+    NetWorkBiz mNetWorkBiz;
     @Inject
     CompositeDisposable compositeDisposable;
 
@@ -46,53 +51,32 @@ public class PartnerPresenter extends BasePresenter<PartnerView> {
         });
     }
 
-    public void addUser(User user) {
-        mSalesBiz.addUsers(new Observer<String>() {
+    public void getSelesMan() {
+        mNetWorkBiz.getSalesManList(new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
             }
 
             @Override
-            public void onNext(String info) {
-                getMvpView().showInfo(info);
+            public void onNext(String s) {
+                Log.i("PartnerPresenter", s);
             }
 
             @Override
             public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
+                Log.i("PartnerPresenter", e.getLocalizedMessage());
+
             }
 
             @Override
             public void onComplete() {
-                getMvpView().onSucceed("刷新数据");
+                Log.i("PartnerPresenter", "onComplete");
+
             }
-        }, user);
+        });
     }
 
-    public void deleteUser(User user) {
-        mSalesBiz.deleteUsers(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                compositeDisposable.add(d);
-            }
-
-            @Override
-            public void onNext(String info) {
-                getMvpView().showInfo(info);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
-
-            @Override
-            public void onComplete() {
-                getMvpView().onSucceed("刷新数据");
-            }
-        }, user);
-    }
 
     @Override
     protected void initInject() {

@@ -22,10 +22,10 @@ import com.jjkj.administrator.storecontrollersystem.utils.pull.PullXmlSpaceNameL
         @PullXmlSpaceNameList(nameUrl = "http://www.w3.org/2001/XMLSchema", prefix = "xsd"),
 
 })
-public class BuisnessManSelectByID {
+public class WritePosBalanceDate {
     @PullXmlSoapHeader
     @PullXmlElementWrapper(tagName = "CredentialSoapHeader", attributeName = "xmlns",
-            attributeValue = "http://tempuri.org/")
+            attributeValue = "http://www.myregent.cn/")
     @PullXmlElement(tagId = 0, tagName = "UserName")
     private String userName;
     @PullXmlSoapHeader
@@ -33,14 +33,30 @@ public class BuisnessManSelectByID {
     private String password;
 
     @PullXmlSoapBody
-    @PullXmlElementWrapper(tagName = "BuisnessManSelectByID", attributeName = "xmlns",
-            attributeValue = "http://tempuri.org/")
-    @PullXmlElement(tagId = 0, tagName = "buisnessManID")
-    private String buisnessManID;
+    @PullXmlElementWrapper(tagName = "WritePosBalanceDate2", attributeName = "xmlns",
+            attributeValue = "http://www.myregent.cn/")
+    @PullXmlElement(tagId = 0, tagName = "customerId")
+    private String customerId;
+    @PullXmlSoapBody
+    @PullXmlElement(tagId = 1, tagName = "date")
+    private String date;
+    @PullXmlSoapBody
+    @PullXmlElement(tagId = 2, tagName = "reserveMoney")
+    private String reserveMoney;
+    @PullXmlSoapBody
+    @PullXmlElement(tagId = 3, tagName = "returnId")
+    private String returnId;
+    @PullXmlSoapBody
+    @PullXmlElement(tagId = 4, tagName = "returnMessage")
+    private String returnMessage;
 
-    public BuisnessManSelectByID() {
+    public WritePosBalanceDate(String date, String storeNumber) {
         this.userName = ShopInfo.SUPER.username;
         this.password = ShopInfo.SUPER.password;
-        this.buisnessManID = "77504";
+        this.customerId = storeNumber;
+        this.date = date;
+        this.reserveMoney = "0";
+        this.returnId = "0";
+        this.returnMessage = "";
     }
 }

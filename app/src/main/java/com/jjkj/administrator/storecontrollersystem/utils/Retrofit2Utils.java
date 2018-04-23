@@ -18,9 +18,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
  */
 
 public class Retrofit2Utils {
-    private static OkHttpClient sOkHttpClient;
-    private static Retrofit sRetrofit;
-    private final static String BASE_URL = "192.168.1.1/";
+    private static volatile OkHttpClient sOkHttpClient;
+    private static volatile Retrofit sRetrofit;
+    private final static String BASE_URL = "http://192.168.1.1/";
 
     private static OkHttpClient getOkHttpClient() {
         if (sOkHttpClient == null) {

@@ -65,11 +65,13 @@ public interface PullHelper {
             PullXmlSoapBody soapBody = field.getAnnotation(PullXmlSoapBody.class);
             if (element != null) {
                 PullXmlElementBean elementBean = new PullXmlElementBean();
-                elementBean.setTagName(element.tagName());
-                try {
-                    elementBean.setText((String) field.get(value));
-                } catch (IllegalAccessException e) {
-                    throw new IOException("获取字段值失败", e);
+                if (element.isNeed()) {
+                    elementBean.setTagName(element.tagName());
+                    try {
+                        elementBean.setText((String) field.get(value));
+                    } catch (IllegalAccessException e) {
+                        throw new IOException("获取字段值失败", e);
+                    }
                 }
                 PullXmlElementWrapper wrapper = field.getAnnotation(PullXmlElementWrapper
                         .class);
@@ -120,11 +122,16 @@ public interface PullHelper {
                 continue;
             }
             serializer.startTag(null, elementBean.getWrapperName());
-            serializer.attribute(null, elementBean.getAttributeName(), elementBean
-                    .getAttributeValue());
+            if (!elementBean.getAttributeName().equals(DEF)) {
+                serializer.attribute(null, elementBean.getAttributeName(), elementBean
+                        .getAttributeValue());
+            }
         }
         for (int i = 0; i < body.size(); i++) {
             PullXmlElementBean elementBean = body.get(i);
+            if (elementBean.getTagName() == null) {
+                continue;
+            }
             serializer.startTag(null, elementBean.getTagName());
             serializer.text(elementBean.getText());
             serializer.endTag(null, elementBean.getTagName());
