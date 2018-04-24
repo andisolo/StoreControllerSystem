@@ -16,7 +16,9 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableOnSubscribe;
@@ -73,7 +75,7 @@ public class SalesBiz implements DaoHelper, RxHelper {
         }).compose(bindOb()).subscribe(observer);
     }
 
-    public void getGoods(Observer<List<String>> observer, InputStream in) {
+    public void getGoods(Observer<Map<String, Goods>> observer, InputStream in) {
         Observable.create((ObservableOnSubscribe<List<Goods>>) emitter -> {
             Workbook workbook = WorkbookFactory.create(in);
             List<Goods> list = new ArrayList<>();
@@ -97,18 +99,16 @@ public class SalesBiz implements DaoHelper, RxHelper {
                     }
                 }
                 list.add(goods);
-                Log.i("SalesBiz", "" + list.size());
             }
             emitter.onNext(list);
             emitter.onComplete();
         })
                 .map(goods -> {
-                    List<String> list = new ArrayList<>();
+                    Map<String, Goods> map = new HashMap<>(50);
                     for (Goods good : goods) {
-                        list.add(good.getNumber());
-                        list.add(good.getName());
+                        map.put(good.getNumber(), good);
                     }
-                    return list;
+                    return map;
                 })
                 .compose(bindOb())
                 .subscribe(observer);

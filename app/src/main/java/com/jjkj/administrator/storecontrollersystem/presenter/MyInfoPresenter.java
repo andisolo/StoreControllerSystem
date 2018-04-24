@@ -1,12 +1,13 @@
 package com.jjkj.administrator.storecontrollersystem.presenter;
 
+import com.jjkj.administrator.storecontrollersystem.bean.Goods;
 import com.jjkj.administrator.storecontrollersystem.model.NetWorkBiz;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MyInfoView;
 
 import java.io.InputStream;
-import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -74,14 +75,14 @@ public class MyInfoPresenter extends BasePresenter<MyInfoView> {
     }
 
     public void getGoods(InputStream in) {
-        mSalesBiz.getGoods(new Observer<List<String>>() {
+        mSalesBiz.getGoods(new Observer<Map<String,Goods>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 mDisposable.add(d);
             }
 
             @Override
-            public void onNext(List<String> o) {
+            public void onNext(Map<String,Goods> o) {
                 getMvpView().onGetGoods(o);
             }
 

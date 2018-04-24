@@ -1,8 +1,9 @@
 package com.jjkj.administrator.storecontrollersystem.view;
 
+import com.jjkj.administrator.storecontrollersystem.bean.Goods;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseView;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * @author Administrator
@@ -21,5 +22,5 @@ public interface MyInfoView extends BaseView {
      *
      * @param goods 数据
      */
-    void onGetGoods(List<String> goods);
+    void onGetGoods(Map<String, Goods> goods);
 }

@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jjkj.administrator.storecontrollersystem.R;
+import com.jjkj.administrator.storecontrollersystem.bean.Goods;
 import com.jjkj.administrator.storecontrollersystem.presenter.MyInfoPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MyInfoView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
 
-import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +83,7 @@ public class ShopFragment extends BaseFragment<MyInfoView, MyInfoPresenter> impl
     }
 
     @Override
-    public void onGetGoods(List<String> goods) {
+    public void onGetGoods(Map<String, Goods> goods) {
 
     }
 }

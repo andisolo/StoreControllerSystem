@@ -1,10 +1,8 @@
 package com.jjkj.administrator.storecontrollersystem;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.jjkj.administrator.storecontrollersystem.utils.PullHelper;
-import com.jjkj.administrator.storecontrollersystem.utils.requset.GetSalesManList;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,8 +18,5 @@ import java.io.IOException;
 public class ExampleInstrumentedTest implements PullHelper {
     @Test
     public void useAppContext() throws IOException {
-        GetSalesManList getSalesManList = new GetSalesManList();
-        String s = obj2xml(getSalesManList, GetSalesManList.class);
-        Log.i("Test", s);
     }
 }
