@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest implements PullHelper {
-    @Test
-    public void useAppContext() throws IOException {
-    }
+	@Test
+	public void useAppContext() throws IOException {
+	}
 }

@@ -2,13 +2,11 @@ package com.jjkj.administrator.storecontrollersystem.presenter;
 
 import android.util.Log;
 
-import com.jjkj.administrator.storecontrollersystem.entity.User;
+import com.jjkj.administrator.storecontrollersystem.bean.PersonResult;
 import com.jjkj.administrator.storecontrollersystem.model.NetWorkBiz;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
 import com.jjkj.administrator.storecontrollersystem.view.PartnerView;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,14 +26,14 @@ public class PartnerPresenter extends BasePresenter<PartnerView> {
     CompositeDisposable compositeDisposable;
 
     public void getUsers() {
-        mSalesBiz.getUsers(new Observer<List<User>>() {
+        mSalesBiz.getUsers(new Observer<PersonResult>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
             }
 
             @Override
-            public void onNext(List<User> users) {
+            public void onNext(PersonResult users) {
                 getMvpView().onLoadUser(users);
             }
 

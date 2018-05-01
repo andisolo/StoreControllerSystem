@@ -14,14 +14,13 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.PartnerAdapter;
-import com.jjkj.administrator.storecontrollersystem.entity.User;
+import com.jjkj.administrator.storecontrollersystem.bean.PersonResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.PartnerPresenter;
 import com.jjkj.administrator.storecontrollersystem.utils.ToastUtils;
 import com.jjkj.administrator.storecontrollersystem.view.PartnerView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,71 +32,72 @@ import butterknife.Unbinder;
  * @description
  */
 public class PartnerFragment extends BaseFragment<PartnerView, PartnerPresenter> implements
-        PartnerView {
-    @BindView(R.id.partner_rcv)
-    RecyclerView mPartnerRcv;
-    Unbinder unbinder;
-    @BindView(R.id.partner_swl)
-    SwipeRefreshLayout mPartnerSwl;
-    private PartnerAdapter mAdapter;
+		PartnerView {
+	@BindView(R.id.partner_rcv)
+	RecyclerView mPartnerRcv;
+	Unbinder unbinder;
+	@BindView(R.id.partner_swl)
+	SwipeRefreshLayout mPartnerSwl;
+	private PartnerAdapter mAdapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_partner, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initView();
-        return view;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+	                         @Nullable Bundle savedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_partner, container, false);
+		unbinder = ButterKnife.bind(this, view);
+		initView();
+		return view;
+	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPresenter().getSelesMan();
-    }
+	@Override
+	public void onResume() {
+		super.onResume();
+		getPresenter().getUsers();
+	}
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 
-    @SuppressLint("InflateParams")
-    private void initView() {
-        mPartnerRcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new PartnerAdapter(R.layout.item_for_partner_rcv, new
-                ArrayList<>());
-        mAdapter.isFirstOnly(false);
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mPartnerSwl.setOnRefreshListener(() -> getPresenter().getUsers());
-    }
+	@SuppressLint("InflateParams")
+	private void initView() {
+		mPartnerRcv.setLayoutManager(new LinearLayoutManager(getContext()));
+		mAdapter = new PartnerAdapter(R.layout.item_for_partner_rcv, new
+				ArrayList<>());
+		mAdapter.isFirstOnly(false);
+		mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+		mPartnerRcv.setAdapter(mAdapter);
+		mPartnerSwl.setOnRefreshListener(() -> getPresenter().getUsers());
+	}
 
-    @Override
-    protected void initInject() {
-        getComponent().inject(this);
-    }
+	@Override
+	protected void initInject() {
+		getComponent().inject(this);
+	}
 
 
-    @Override
-    public void onLoadUser(List<User> users) {
-        mAdapter.replaceData(users);
-    }
+	@Override
+	public void onLoadUser(PersonResult users) {
+		mAdapter.replaceData(users.getPerson());
+	}
 
-    @Override
-    public void onSucceed(String info) {
-        getPresenter().getUsers();
-        ToastUtils.showToast(getContext(), info);
-        if (mPartnerSwl != null && mPartnerSwl.isRefreshing()) {
-            mPartnerSwl.setRefreshing(false);
-        }
-    }
+	@Override
+	public void onSucceed(String info) {
+		getPresenter().getUsers();
+		ToastUtils.showToast(getContext(), info);
+		if (mPartnerSwl != null && mPartnerSwl.isRefreshing()) {
+			mPartnerSwl.setRefreshing(false);
+		}
+	}
 
-    @Override
-    public void showInfo(String info) {
-        ToastUtils.showToast(getContext(), info);
-        if (mPartnerSwl != null && mPartnerSwl.isRefreshing()) {
-            mPartnerSwl.setRefreshing(false);
-        }
-    }
+	@Override
+	public void showInfo(String info) {
+		ToastUtils.showToast(getContext(), info);
+		if (mPartnerSwl != null && mPartnerSwl.isRefreshing()) {
+			mPartnerSwl.setRefreshing(false);
+		}
+	}
 }

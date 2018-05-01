@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.R;
-import com.jjkj.administrator.storecontrollersystem.entity.Order;
+import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
-
-import java.util.List;
 
 /**
  * @author lenovo
@@ -36,7 +34,7 @@ public class CustomerFragment extends BaseFragment<MainView, NormalSalesPresente
 
 
     @Override
-    public void onLoadData(List<Order> orders) {
+    public void onLoadData(SlipResult orders) {
 
     }
 }

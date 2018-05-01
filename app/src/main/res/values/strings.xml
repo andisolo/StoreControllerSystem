@@ -18,5 +18,6 @@
     <string name="shop_tip">这里输入需要查询的店铺号码</string>
     <string name="vip_num">会员卡号</string>
     <string name="no_data_tip">现在还没有添加数据</string>
+    <string name="commit">提交</string>
 
 </resources>

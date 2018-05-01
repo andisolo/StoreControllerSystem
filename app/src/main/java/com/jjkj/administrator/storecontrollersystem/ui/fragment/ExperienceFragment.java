@@ -12,13 +12,12 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.ExperienceAdapter;
-import com.jjkj.administrator.storecontrollersystem.entity.Order;
+import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,7 +72,7 @@ public class ExperienceFragment extends BaseFragment<MainView, NormalSalesPresen
 
 
     @Override
-    public void onLoadData(List<Order> orders) {
-        mAdapter.replaceData(orders);
+    public void onLoadData(SlipResult orders) {
+        mAdapter.replaceData(orders.getSalesSlip());
     }
 }

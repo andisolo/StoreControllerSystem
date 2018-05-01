@@ -1,6 +1,7 @@
 package com.jjkj.administrator.storecontrollersystem.presenter;
 
-import com.jjkj.administrator.storecontrollersystem.entity.Order;
+import com.jjkj.administrator.storecontrollersystem.bean.SalesSlip;
+import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.entity.OrderItem;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
@@ -24,14 +25,14 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
     CompositeDisposable compositeDisposable;
 
     public void getOrders() {
-        mSalesBiz.getOrders(new Observer<List<Order>>() {
+        mSalesBiz.getOrders(new Observer<SlipResult>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
             }
 
             @Override
-            public void onNext(List<Order> orders) {
+            public void onNext(SlipResult orders) {
                 getMvpView().onLoadData(orders);
             }
 

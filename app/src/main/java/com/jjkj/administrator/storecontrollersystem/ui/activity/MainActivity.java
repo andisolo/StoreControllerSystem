@@ -9,7 +9,7 @@ import android.support.v4.view.ViewPager;
 import com.jjkj.administrator.storecontrollersystem.R;
 import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter;
 import com.jjkj.administrator.storecontrollersystem.api.StoreServiceApi;
-import com.jjkj.administrator.storecontrollersystem.entity.Order;
+import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.MainPresenter;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.CustomerFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.MyInfoFragment;
@@ -71,7 +71,7 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     }
 
     @Override
-    public void onLoadData(List<Order> orders) {
+    public void onLoadData(SlipResult orders) {
 
     }
 }
