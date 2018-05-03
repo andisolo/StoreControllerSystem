@@ -8,10 +8,15 @@ import com.jjkj.administrator.storecontrollersystem.view.base.BaseView;
  */
 public interface MainView extends BaseView {
 
-	/**
-	 * 加载数据
-	 *
-	 * @param orders 加载到的订单数据
-	 */
-	void onLoadData(SlipResult orders);
+    /**
+     * 加载数据
+     *
+     * @param orders 加载到的订单数据
+     */
+    void onLoadData(SlipResult orders);
+
+    /**
+     * 加载数据
+     */
+    void onFailed();
 }

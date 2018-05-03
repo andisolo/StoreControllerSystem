@@ -29,6 +29,11 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
         super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onDestroy() {
+        mPresenter.detachView();
+        super.onDestroy();
+    }
 
     /**
      * 注入当前Fragment所需的依赖

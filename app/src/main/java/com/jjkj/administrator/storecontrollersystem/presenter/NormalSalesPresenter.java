@@ -1,13 +1,11 @@
 package com.jjkj.administrator.storecontrollersystem.presenter;
 
-import com.jjkj.administrator.storecontrollersystem.bean.SalesSlip;
 import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
-import com.jjkj.administrator.storecontrollersystem.entity.OrderItem;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
 import com.jjkj.administrator.storecontrollersystem.presenter.base.BasePresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,8 +22,8 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
     @Inject
     CompositeDisposable compositeDisposable;
 
-    public void getOrders() {
-        mSalesBiz.getOrders(new Observer<SlipResult>() {
+    public void getOrders(Map<String, String> map) {
+        mSalesBiz.getOrders(map, new Observer<SlipResult>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
@@ -39,6 +37,7 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
             @Override
             public void onError(Throwable e) {
                 getMvpView().showInfo(e.getLocalizedMessage());
+                getMvpView().onFailed();
             }
 
             @Override
@@ -47,31 +46,6 @@ public class NormalSalesPresenter extends BasePresenter<MainView> {
             }
         });
     }
-
-    public void addOrders(List<OrderItem> orderItems, String name) {
-        mSalesBiz.addOrders(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                compositeDisposable.add(d);
-            }
-
-            @Override
-            public void onNext(String orders) {
-                getMvpView().showInfo(orders);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        }, orderItems, name);
-    }
-
 
 
     @Override

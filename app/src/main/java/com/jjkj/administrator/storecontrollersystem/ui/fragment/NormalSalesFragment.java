@@ -3,6 +3,7 @@ package com.jjkj.administrator.storecontrollersystem.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import com.jjkj.administrator.storecontrollersystem.view.MainView;
 import com.jjkj.administrator.storecontrollersystem.view.base.BaseFragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +36,10 @@ public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPrese
     @BindView(R.id.general_rcv)
     RecyclerView mGeneralRcv;
     Unbinder unbinder;
+    @BindView(R.id.general_swl)
+    SwipeRefreshLayout mGeneralSwl;
     private NormalSalesAdapter mAdapter;
+    private Map<String, String> mMap;
 
     @Nullable
     @Override
@@ -48,7 +54,7 @@ public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPrese
     @Override
     public void onResume() {
         super.onResume();
-        getPresenter().getOrders();
+        getPresenter().getOrders(mMap);
     }
 
     @Override
@@ -68,11 +74,24 @@ public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPrese
         mAdapter.isFirstOnly(false);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mGeneralRcv.setAdapter(mAdapter);
+        mMap = new HashMap<>(1);
+        mMap.put("style", "正常销售");
+        mGeneralSwl.setOnRefreshListener(() -> getPresenter().getOrders(mMap));
     }
 
 
     @Override
     public void onLoadData(SlipResult orders) {
+        if (mGeneralSwl != null && mGeneralSwl.isRefreshing()) {
+            mGeneralSwl.setRefreshing(false);
+        }
         mAdapter.replaceData(orders.getSalesSlip());
+    }
+
+    @Override
+    public void onFailed() {
+        if (mGeneralSwl != null && mGeneralSwl.isRefreshing()) {
+            mGeneralSwl.setRefreshing(false);
+        }
     }
 }

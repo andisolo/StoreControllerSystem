@@ -39,10 +39,10 @@
                     android:hint="@string/goods_name">
 
                     <AutoCompleteTextView
-                        android:completionThreshold="2"
                         android:id="@+id/do_sales_goods_name"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:completionThreshold="2" />
                 </android.support.design.widget.TextInputLayout>
 
                 <LinearLayout
@@ -57,23 +57,24 @@
                         android:hint="@string/goods_number">
 
                         <android.support.design.widget.TextInputEditText
-                            android:inputType="number"
                             android:id="@+id/do_sales_goods_number"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:inputType="number" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/do_sales_vip_number_hint"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
                         android:layout_weight="1"
                         android:hint="@string/vip_num">
 
                         <android.support.design.widget.TextInputEditText
-                            android:inputType="number"
                             android:id="@+id/do_sales_vip_number"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"
+                            android:inputType="number" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -87,8 +88,33 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/holo_green_light"
+                            android:gravity="center_vertical">
+
+                            <com.jjkj.administrator.storecontrollersystem.ui.view.MyTextSwitcher
+                                android:id="@+id/do_sales_title_switcher"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">
@@ -107,8 +133,8 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="0dp"
                         android:layout_height="45dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="10dp">

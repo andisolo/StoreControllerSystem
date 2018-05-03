@@ -33,7 +33,7 @@
             android:hint="@string/goods_number">
 
             <EditText
-                android:id="@+id/item_for_general_rcv_do_sales_price"
+                android:id="@+id/item_for_general_rcv_do_sales_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null" />
@@ -46,7 +46,7 @@
             android:hint="@string/goods_price">
 
             <EditText
-                android:id="@+id/item_for_general_rcv_do_sales_number"
+                android:id="@+id/item_for_general_rcv_do_sales_price"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null" />

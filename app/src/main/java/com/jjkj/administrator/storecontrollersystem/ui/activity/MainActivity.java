@@ -74,4 +74,9 @@ public class MainActivity extends BaseActivity<MainView, MainPresenter> implemen
     public void onLoadData(SlipResult orders) {
 
     }
+
+    @Override
+    public void onFailed() {
+
+    }
 }

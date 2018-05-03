@@ -37,4 +37,9 @@ public class CustomerFragment extends BaseFragment<MainView, NormalSalesPresente
     public void onLoadData(SlipResult orders) {
 
     }
+
+    @Override
+    public void onFailed() {
+
+    }
 }

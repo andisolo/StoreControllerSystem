@@ -1,16 +1,10 @@
 package com.jjkj.administrator.storecontrollersystem.ui.fragment;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.app.ActivityCompat;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,25 +103,4 @@ public class MySelfFragment extends BaseFragment<MyInfoView, MyInfoPresenter> im
 		mMyselfAge.setText(myself.getAge());
 		mMyselfPhone.setText(myself.getPhone());
 	}
-
-	private String getPhoneNumber() {
-		TelephonyManager manager = (TelephonyManager) getContext().getSystemService(Context
-				.TELEPHONY_SERVICE);
-		if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_SMS) !=
-				PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-				(getContext(),
-						Manifest.permission.READ_PHONE_NUMBERS) != PackageManager
-				.PERMISSION_GRANTED &&
-				ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
-						.READ_PHONE_STATE) !=
-						PackageManager.PERMISSION_GRANTED) {
-			return "null";
-		}
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-			return manager != null ? manager.getMeid() : null;
-		} else {
-			return manager != null ? manager.getDeviceId() : null;
-		}
-	}
-
 }

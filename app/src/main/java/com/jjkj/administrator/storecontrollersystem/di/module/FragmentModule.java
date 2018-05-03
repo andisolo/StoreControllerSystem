@@ -3,6 +3,7 @@ package com.jjkj.administrator.storecontrollersystem.di.module;
 import com.jjkj.administrator.storecontrollersystem.presenter.MyInfoPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.PartnerPresenter;
+import com.jjkj.administrator.storecontrollersystem.presenter.StockPresenter;
 
 import javax.inject.Singleton;
 
@@ -30,5 +31,11 @@ public class FragmentModule {
     @Provides
     MyInfoPresenter getMyInfoPresenter() {
         return new MyInfoPresenter();
+    }
+
+    @Singleton
+    @Provides
+    StockPresenter getStockPresenter() {
+        return new StockPresenter();
     }
 }

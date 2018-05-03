@@ -28,68 +28,70 @@ import butterknife.Unbinder;
 public class ShopFragment extends BaseFragment<MyInfoView, MyInfoPresenter> implements MyInfoView {
 
 
-	@BindView(R.id.shop_fragment_info)
-	TextView mShopFragmentInfo;
-	Unbinder unbinder;
-	@BindView(R.id.shop_fragment_edt)
-	TextInputEditText mShopFragmentEdt;
-	@BindView(R.id.shop_fragment_sch)
-	TextView mShopFragmentSch;
-	@BindView(R.id.shop_fragment_btn)
-	TextView mShopFragmentBtn;
+    @BindView(R.id.shop_fragment_info)
+    TextView mShopFragmentInfo;
+    Unbinder unbinder;
+    @BindView(R.id.shop_fragment_edt)
+    TextInputEditText mShopFragmentEdt;
+    @BindView(R.id.shop_fragment_sch)
+    TextView mShopFragmentSch;
+    @BindView(R.id.shop_fragment_btn)
+    TextView mShopFragmentBtn;
 
-	@Nullable
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-	                         @Nullable Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_shop, container, false);
-		unbinder = ButterKnife.bind(this, view);
-		initView();
-		return view;
-	}
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_shop, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        initView();
+        return view;
+    }
 
-	private void initView() {
-		mShopFragmentSch.setOnClickListener(v -> {
-			if (!"".equals(mShopFragmentEdt.getText().toString())) {
-				getPresenter().getPosBalaceDate(mShopFragmentEdt.getText().toString());
-			}
-		});
-		mShopFragmentBtn.setOnClickListener(v -> {
-			if (!"".equals(mShopFragmentEdt.getText().toString())) {
-				getPresenter().writePosBalanceDate(mShopFragmentEdt.getText().toString());
-			}
-		});
-	}
+    private void initView() {
+        mShopFragmentSch.setOnClickListener(v -> {
+            if (!"".equals(mShopFragmentEdt.getText().toString())) {
+                getPresenter().getPosBalaceDate(mShopFragmentEdt.getText().toString());
+            }
+        });
+        mShopFragmentBtn.setOnClickListener(v -> {
+            if (!"".equals(mShopFragmentEdt.getText().toString())) {
+                getPresenter().writePosBalanceDate(mShopFragmentEdt.getText().toString());
+            }
+        });
+    }
 
-	@Override
-	public void onResume() {
-		getPresenter().getPosBalaceDate("JMD2263");
-		super.onResume();
-	}
+    @Override
+    public void onResume() {
+        getPresenter().getPosBalaceDate("JMD2263");
+        super.onResume();
+    }
 
-	@Override
-	protected void initInject() {
-		getComponent().inject(this);
-	}
+    @Override
+    protected void initInject() {
+        getComponent().inject(this);
+    }
 
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		unbinder.unbind();
-	}
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
 
-	@Override
-	public void onLoadStringData(String info) {
-		mShopFragmentInfo.setText(info);
-	}
+    @Override
+    public void onLoadStringData(String info) {
+        if (info != null) {
+            mShopFragmentInfo.setText(info);
+        }
+    }
 
-	@Override
-	public void onGetGoods(Map<String, Goods> goods) {
+    @Override
+    public void onGetGoods(Map<String, Goods> goods) {
 
-	}
+    }
 
-	@Override
-	public void onGetPerson(PersonResult personResult) {
+    @Override
+    public void onGetPerson(PersonResult personResult) {
 
-	}
+    }
 }

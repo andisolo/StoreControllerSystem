@@ -64,7 +64,8 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
         mFragments.add(new NormalSalesFragment());
         mFragments.add(new SalesPromotionFragment());
         mFragments.add(new ExperienceFragment());
-        SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getChildFragmentManager(), mFragments);
+        SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getChildFragmentManager(),
+                mFragments);
         mSaleVp.setAdapter(adapter);
     }
 
@@ -76,6 +77,11 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
 
     @Override
     public void onLoadData(SlipResult orders) {
+
+    }
+
+    @Override
+    public void onFailed() {
 
     }
 }

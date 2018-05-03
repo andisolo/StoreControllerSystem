@@ -36,7 +36,7 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
     @BindView(R.id.my_info_vp)
     ViewPager mMyInfoVp;
     Unbinder unbinder;
-    public static final String[] TABS = {"销售登记", "日结管理", "我的信息"};
+    public static final String[] TABS = {"销售登记", "日结管理", "我的信息", "库存管理"};
 
     @Nullable
     @Override
@@ -66,6 +66,7 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
         fragments.add(new DoSalesFragment());
         fragments.add(new ShopFragment());
         fragments.add(new MySelfFragment());
+        fragments.add(new StockFragment());
         MainViewPagerAdapter adapter = new MainViewPagerAdapter(getChildFragmentManager(),
                 fragments);
         mMyInfoVp.setAdapter(adapter);
@@ -82,6 +83,11 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
 
     @Override
     public void onLoadData(SlipResult orders) {
+
+    }
+
+    @Override
+    public void onFailed() {
 
     }
 }

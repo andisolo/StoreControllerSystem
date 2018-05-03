@@ -20,6 +20,12 @@ public class TimeUtils {
         return mDateFormat.format(new Date(System.currentTimeMillis()));
     }
 
+    public static String getTime(Date date) {
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat mDateFormat = new SimpleDateFormat(pattern, Locale.CHINESE);
+        return mDateFormat.format(date);
+    }
+
     public static String getTimeAddOneDay(String dateString) {
         String pattern = "yyyy-MM-dd'T'HH:mm:ss";
         SimpleDateFormat mDateFormat = new SimpleDateFormat(pattern, Locale.CHINESE);

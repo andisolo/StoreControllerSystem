@@ -12,6 +12,7 @@ import com.jjkj.administrator.storecontrollersystem.ui.fragment.PartnerFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesPromotionFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.ShopFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.StockFragment;
 
 import javax.inject.Singleton;
 
@@ -94,5 +95,12 @@ public interface FragmentComponent {
      * @param fragment fragment
      */
     void inject(MySelfFragment fragment);
+
+    /**
+     * 注入StockFragment所需的依赖
+     *
+     * @param fragment fragment
+     */
+    void inject(StockFragment fragment);
 
 }
