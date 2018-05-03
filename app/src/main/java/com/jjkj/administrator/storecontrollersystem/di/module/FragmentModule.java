@@ -1,5 +1,6 @@
 package com.jjkj.administrator.storecontrollersystem.di.module;
 
+import com.jjkj.administrator.storecontrollersystem.presenter.CustomerPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.MyInfoPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.presenter.PartnerPresenter;
@@ -37,5 +38,11 @@ public class FragmentModule {
     @Provides
     StockPresenter getStockPresenter() {
         return new StockPresenter();
+    }
+
+    @Singleton
+    @Provides
+    CustomerPresenter getCustomerPresenter() {
+        return new CustomerPresenter();
     }
 }

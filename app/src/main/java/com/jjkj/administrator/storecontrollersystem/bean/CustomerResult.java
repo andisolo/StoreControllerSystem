@@ -2,6 +2,9 @@ package com.jjkj.administrator.storecontrollersystem.bean;
 
 import java.util.List;
 
+/**
+ * @author Guo JiaMing
+ */
 public class CustomerResult {
 
     private String result;

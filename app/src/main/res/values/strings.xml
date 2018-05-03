@@ -19,5 +19,8 @@
     <string name="vip_num">会员卡号</string>
     <string name="no_data_tip">现在还没有添加数据</string>
     <string name="commit">提交</string>
+    <string name="customer_name">这里输入顾客姓名</string>
+    <string name="customer_age">这里输入顾客年龄</string>
+    <string name="customer_phone">这里输入顾客手机号码</string>
 
 </resources>

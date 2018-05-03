@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.sales;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jjkj.administrator.storecontrollersystem.R;
-import com.jjkj.administrator.storecontrollersystem.adapter.NormalSalesAdapter;
+import com.jjkj.administrator.storecontrollersystem.adapter.SalesProMotionAdapter;
 import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
@@ -31,14 +31,14 @@ import butterknife.Unbinder;
  * Created on 2018/4/19.
  * @description
  */
-public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
+public class SalesPromotionFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
         MainView {
     @BindView(R.id.general_rcv)
     RecyclerView mGeneralRcv;
     Unbinder unbinder;
     @BindView(R.id.general_swl)
     SwipeRefreshLayout mGeneralSwl;
-    private NormalSalesAdapter mAdapter;
+    private SalesProMotionAdapter mAdapter;
     private Map<String, String> mMap;
 
     @Nullable
@@ -69,16 +69,16 @@ public class NormalSalesFragment extends BaseFragment<MainView, NormalSalesPrese
     }
 
     private void initView() {
-        mAdapter = new NormalSalesAdapter(R.layout.item_for_normal_sales, new ArrayList<>());
+        mAdapter = new SalesProMotionAdapter(R.layout.item_for_normal_sales,
+                new ArrayList<>());
         mGeneralRcv.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter.isFirstOnly(false);
         mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
         mGeneralRcv.setAdapter(mAdapter);
         mMap = new HashMap<>(1);
-        mMap.put("style", "正常销售");
+        mMap.put("style", "活动销售");
         mGeneralSwl.setOnRefreshListener(() -> getPresenter().getOrders(mMap));
     }
-
 
     @Override
     public void onLoadData(SlipResult orders) {

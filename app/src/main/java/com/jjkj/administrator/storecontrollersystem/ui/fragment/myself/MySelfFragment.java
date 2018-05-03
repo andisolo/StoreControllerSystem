@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.myself;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

@@ -2,17 +2,19 @@ package com.jjkj.administrator.storecontrollersystem.di.component;
 
 
 import com.jjkj.administrator.storecontrollersystem.di.module.FragmentModule;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.CustomerFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.DoSalesFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.ExperienceFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.MyInfoFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.MySelfFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.NormalSalesFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.PartnerFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesPromotionFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.ShopFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.StockFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerAddFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerListFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.DoSalesFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.MyInfoFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.MySelfFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.ShopFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.StockFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.partner.PartnerFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.sales.ExperienceFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.sales.NormalSalesFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.sales.SalesFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.sales.SalesPromotionFragment;
 
 import javax.inject.Singleton;
 
@@ -102,5 +104,19 @@ public interface FragmentComponent {
      * @param fragment fragment
      */
     void inject(StockFragment fragment);
+
+    /**
+     * 注入CustomerAddFragment所需的依赖
+     *
+     * @param fragment fragment
+     */
+    void inject(CustomerAddFragment fragment);
+
+    /**
+     * 注入CustomerListFragment所需的依赖
+     *
+     * @param fragment fragment
+     */
+    void inject(CustomerListFragment fragment);
 
 }

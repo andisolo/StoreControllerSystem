@@ -11,10 +11,10 @@ import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter
 import com.jjkj.administrator.storecontrollersystem.api.StoreServiceApi;
 import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.MainPresenter;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.CustomerFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.MyInfoFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.PartnerFragment;
-import com.jjkj.administrator.storecontrollersystem.ui.fragment.SalesFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.MyInfoFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.partner.PartnerFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.sales.SalesFragment;
 import com.jjkj.administrator.storecontrollersystem.utils.Retrofit2Utils;
 import com.jjkj.administrator.storecontrollersystem.utils.RxHelper;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;

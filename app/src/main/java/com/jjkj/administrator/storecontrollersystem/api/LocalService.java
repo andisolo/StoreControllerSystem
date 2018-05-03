@@ -97,4 +97,22 @@ public interface LocalService {
     @POST("stock_updateStock")
     @FormUrlEncoded
     Observable<Result> updateStock(@FieldMap Map<String, String> map);
+
+    /**
+     * 加载库存信息
+     *
+     * @param map map
+     * @return SalesSlip
+     */
+    @POST("customer_addCustomer")
+    @FormUrlEncoded
+    Observable<Result> commitCustomer(@FieldMap Map<String, String> map);
+
+    /**
+     * 加载库存信息
+     *
+     * @return SalesSlip
+     */
+    @GET("customer_findCustomer")
+    Observable<CustomerResult> loadCustomer();
 }

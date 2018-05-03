@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.customer;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jjkj.administrator.storecontrollersystem.R;
-import com.jjkj.administrator.storecontrollersystem.adapter.MainViewPagerAdapter;
+import com.jjkj.administrator.storecontrollersystem.adapter.SalesViewPagerAdapter;
 import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
 import com.jjkj.administrator.storecontrollersystem.presenter.NormalSalesPresenter;
 import com.jjkj.administrator.storecontrollersystem.view.MainView;
@@ -29,28 +29,39 @@ import butterknife.Unbinder;
  * Created on 2018/4/19.
  * @description
  */
-public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
+public class CustomerFragment extends BaseFragment<MainView, NormalSalesPresenter> implements
         MainView {
-    @BindView(R.id.my_info_tbV)
-    TabLayout mMyInfoTbV;
-    @BindView(R.id.my_info_vp)
-    ViewPager mMyInfoVp;
+    @BindView(R.id.custom_tbV)
+    TabLayout mCustomTbV;
+    @BindView(R.id.custom_vp)
+    ViewPager mCustomVp;
     Unbinder unbinder;
-    public static final String[] TABS = {"销售登记", "日结管理", "我的信息", "库存管理"};
+    private static final String[] TABS = {"售后明细", "顾客明细", "新增顾客"};
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_my_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_customer, container, false);
         unbinder = ButterKnife.bind(this, view);
         initView();
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    private void initView() {
+        for (String tab : TABS) {
+            mCustomTbV.addTab(mCustomTbV.newTab().setText(tab));
+        }
+        mCustomTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener
+                (mCustomVp));
+        mCustomVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mCustomTbV));
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new ServiceFragment());
+        fragments.add(new CustomerListFragment());
+        fragments.add(new CustomerAddFragment());
+        SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getChildFragmentManager(),
+                fragments);
+        mCustomVp.setAdapter(adapter);
     }
 
     @Override
@@ -58,28 +69,6 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
         getComponent().inject(this);
     }
 
-    private void initView() {
-        for (String tab : TABS) {
-            mMyInfoTbV.addTab(mMyInfoTbV.newTab().setText(tab));
-        }
-        List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DoSalesFragment());
-        fragments.add(new ShopFragment());
-        fragments.add(new MySelfFragment());
-        fragments.add(new StockFragment());
-        MainViewPagerAdapter adapter = new MainViewPagerAdapter(getChildFragmentManager(),
-                fragments);
-        mMyInfoVp.setAdapter(adapter);
-        mMyInfoTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener
-                (mMyInfoVp));
-        mMyInfoVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mMyInfoTbV));
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     @Override
     public void onLoadData(SlipResult orders) {
@@ -89,5 +78,11 @@ public class MyInfoFragment extends BaseFragment<MainView, NormalSalesPresenter>
     @Override
     public void onFailed() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

@@ -142,4 +142,16 @@ public class SalesBiz implements DaoHelper, RxHelper {
                 .compose(bindOb())
                 .subscribe(observer);
     }
+
+    public void commitCustomer(Map<String, String> map, Observer<Result> observer) {
+        mLocalService.commitCustomer(map)
+                .compose(bindOb())
+                .subscribe(observer);
+    }
+    public void loadCustomer(Observer<CustomerResult> observer) {
+        mLocalService.loadCustomer()
+                .compose(bindOb())
+                .subscribe(observer);
+    }
+
 }

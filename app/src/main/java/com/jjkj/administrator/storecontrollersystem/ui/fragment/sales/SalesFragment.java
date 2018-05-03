@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.sales;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,7 +37,6 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
     @BindView(R.id.sale_vp)
     ViewPager mSaleVp;
     Unbinder unbinder;
-    private List<Fragment> mFragments;
 
     @Nullable
     @Override
@@ -60,12 +59,12 @@ public class SalesFragment extends BaseFragment<MainView, NormalSalesPresenter> 
         }
         mSaleTbV.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mSaleVp));
         mSaleVp.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mSaleTbV));
-        mFragments = new ArrayList<>();
-        mFragments.add(new NormalSalesFragment());
-        mFragments.add(new SalesPromotionFragment());
-        mFragments.add(new ExperienceFragment());
+        List<Fragment> fragments = new ArrayList<>();
+        fragments.add(new NormalSalesFragment());
+        fragments.add(new SalesPromotionFragment());
+        fragments.add(new ExperienceFragment());
         SalesViewPagerAdapter adapter = new SalesViewPagerAdapter(getChildFragmentManager(),
-                mFragments);
+                fragments);
         mSaleVp.setAdapter(adapter);
     }
 

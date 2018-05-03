@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.myself;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;

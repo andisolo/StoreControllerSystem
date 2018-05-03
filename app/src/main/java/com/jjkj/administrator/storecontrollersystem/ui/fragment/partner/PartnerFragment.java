@@ -1,4 +1,4 @@
-package com.jjkj.administrator.storecontrollersystem.ui.fragment;
+package com.jjkj.administrator.storecontrollersystem.ui.fragment.partner;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
