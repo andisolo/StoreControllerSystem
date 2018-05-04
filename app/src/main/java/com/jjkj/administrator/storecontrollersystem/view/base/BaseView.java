@@ -68,7 +68,7 @@ public interface BaseView {
      *
      * @return activity
      */
-    default Context getContext() {
+    default Context getMyContext() {
         if (ACTIVITY_LIST.size() <= 0) {
             return null;
         }
@@ -81,14 +81,14 @@ public interface BaseView {
      * @return 手机的Meid
      */
     default String getPhoneNumber() {
-        TelephonyManager manager = (TelephonyManager) getContext().getSystemService(Context
+        TelephonyManager manager = (TelephonyManager) getMyContext().getSystemService(Context
                 .TELEPHONY_SERVICE);
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.READ_SMS) !=
+        if (ActivityCompat.checkSelfPermission(getMyContext(), Manifest.permission.READ_SMS) !=
                 PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (getContext(),
+                (getMyContext(),
                         Manifest.permission.READ_PHONE_NUMBERS) != PackageManager
                 .PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
+                ActivityCompat.checkSelfPermission(getMyContext(), Manifest.permission
                         .READ_PHONE_STATE) !=
                         PackageManager.PERMISSION_GRANTED) {
             return "null";

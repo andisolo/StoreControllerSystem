@@ -3,10 +3,14 @@ package com.jjkj.administrator.storecontrollersystem.model;
 import android.util.Log;
 
 import com.jjkj.administrator.storecontrollersystem.api.LocalService;
+import com.jjkj.administrator.storecontrollersystem.bean.AfterSalesService;
+import com.jjkj.administrator.storecontrollersystem.bean.AfterSalesServiceResult;
+import com.jjkj.administrator.storecontrollersystem.bean.Customer;
 import com.jjkj.administrator.storecontrollersystem.bean.CustomerResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Goods;
 import com.jjkj.administrator.storecontrollersystem.bean.Person;
 import com.jjkj.administrator.storecontrollersystem.bean.PersonResult;
+import com.jjkj.administrator.storecontrollersystem.bean.PictureUpLoadResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Result;
 import com.jjkj.administrator.storecontrollersystem.bean.SalesSlip;
 import com.jjkj.administrator.storecontrollersystem.bean.SlipResult;
@@ -20,6 +24,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +32,14 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.functions.Function;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 /**
  * @author Administrator
@@ -148,8 +157,41 @@ public class SalesBiz implements DaoHelper, RxHelper {
                 .compose(bindOb())
                 .subscribe(observer);
     }
+
     public void loadCustomer(Observer<CustomerResult> observer) {
         mLocalService.loadCustomer()
+                .compose(bindOb())
+                .subscribe(observer);
+    }
+
+    public void loadCustomerService(Observer<AfterSalesServiceResult> observer) {
+        mLocalService.loadAfterSalesService()
+                .compose(bindOb())
+                .subscribe(observer);
+    }
+
+    public void upLoadPicture(Map<String, Object> map, Observer<Result> observer) {
+        File file = (File) map.get("file");
+        AfterSalesService salesService = new AfterSalesService();
+        salesService.setName((String) map.get("name"));
+        salesService.setCustomer((Customer) map.get("customer"));
+        RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part part = MultipartBody.Part
+                .createFormData("file", file.getName(), body);
+        mLocalService.upLoadPicture(part)
+                .flatMap((Function<PictureUpLoadResult, ObservableSource<Result>>)
+                        pictureUpLoadResult -> {
+                            salesService.setPicture(pictureUpLoadResult.getPicture());
+                            return Observable.create(new ObservableOnSubscribe<Result>() {
+                                @Override
+                                public void subscribe(ObservableEmitter<Result> emitter) throws
+                                        Exception {
+                                    Result result = new Result();
+                                    result.setResult("ok");
+                                    emitter.onNext(result);
+                                }
+                            });
+                        })
                 .compose(bindOb())
                 .subscribe(observer);
     }

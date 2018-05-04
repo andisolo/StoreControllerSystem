@@ -5,6 +5,7 @@ import com.jjkj.administrator.storecontrollersystem.di.module.FragmentModule;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerAddFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.CustomerListFragment;
+import com.jjkj.administrator.storecontrollersystem.ui.fragment.customer.ServiceFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.DoSalesFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.MyInfoFragment;
 import com.jjkj.administrator.storecontrollersystem.ui.fragment.myself.MySelfFragment;
@@ -118,5 +119,12 @@ public interface FragmentComponent {
      * @param fragment fragment
      */
     void inject(CustomerListFragment fragment);
+
+    /**
+     * 注入ServiceFragment所需的依赖
+     *
+     * @param fragment fragment
+     */
+    void inject(ServiceFragment fragment);
 
 }

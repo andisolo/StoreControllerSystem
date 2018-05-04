@@ -2,6 +2,7 @@ package com.jjkj.administrator.storecontrollersystem.presenter;
 
 import android.util.Log;
 
+import com.jjkj.administrator.storecontrollersystem.bean.AfterSalesServiceResult;
 import com.jjkj.administrator.storecontrollersystem.bean.CustomerResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Result;
 import com.jjkj.administrator.storecontrollersystem.model.SalesBiz;
@@ -64,7 +65,55 @@ public class CustomerPresenter extends BasePresenter<CustomerView> {
 
             @Override
             public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
+                getMvpView().onCustomerLoadFailed(e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                getMvpView().showInfo("提交成功");
+            }
+        });
+    }
+
+    public void loadCustomerService() {
+        mSalesBiz.loadCustomerService(new Observer<AfterSalesServiceResult>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mDisposable.add(d);
+            }
+
+            @Override
+            public void onNext(AfterSalesServiceResult result) {
+                getMvpView().onCustomerLoad(result);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getMvpView().onCustomerLoadFailed(e.getLocalizedMessage());
+            }
+
+            @Override
+            public void onComplete() {
+                getMvpView().showInfo("提交成功");
+            }
+        });
+    }
+
+    public void upLoadPicture(Map<String, Object> map) {
+        mSalesBiz.upLoadPicture(map, new Observer<Result>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mDisposable.add(d);
+            }
+
+            @Override
+            public void onNext(Result result) {
+                Log.i("upLoadPicture", result.getResult());
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getMvpView().onCustomerLoadFailed(e.getLocalizedMessage());
             }
 
             @Override

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/camera2_sfv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ImageView
+        android:id="@+id/camera2_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2B2B2B"
+        android:scaleType="fitXY"
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/camera2_close"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="40dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/close" />
+
+
+    <ImageView
+        android:id="@+id/camera2_pic"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/pic" />
+
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/camera2_selected"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="40dp"
+        android:layout_marginBottom="30dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/selected" />
+
+
+</RelativeLayout>
