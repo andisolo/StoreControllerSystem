@@ -116,6 +116,7 @@ public class CustomerListFragment extends BaseFragment<CustomerView, CustomerPre
     public void onCustomerLoadFailed(String info) {
         if (mGeneralSwl.isRefreshing()) {
             mGeneralSwl.setRefreshing(false);
+            
         }
     }
 
