@@ -22,7 +22,7 @@ public class Retrofit2Utils {
 	private static volatile Retrofit sRetrofit;
 	private static volatile Retrofit jRetrofit;
 	private final static String BASE_URL = "http://192.168.1.101:8080/";
-	private final static String BASE_URL_LOCAL = "http://192.168.0.200:8080/";
+	private final static String BASE_URL_LOCAL = "http://192.168.1.101:8080/";
 
 	private static OkHttpClient getOkHttpClient() {
 		if (sOkHttpClient == null) {
