@@ -4,6 +4,7 @@ import com.jjkj.administrator.storecontrollersystem.bean.AfterSalesService;
 import com.jjkj.administrator.storecontrollersystem.bean.AfterSalesServiceResult;
 import com.jjkj.administrator.storecontrollersystem.bean.CustomerResult;
 import com.jjkj.administrator.storecontrollersystem.bean.PersonResult;
+import com.jjkj.administrator.storecontrollersystem.bean.Picture;
 import com.jjkj.administrator.storecontrollersystem.bean.PictureUpLoadResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Result;
 import com.jjkj.administrator.storecontrollersystem.bean.SalesSlip;
@@ -13,14 +14,11 @@ import com.jjkj.administrator.storecontrollersystem.bean.StockResult;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 /**
  * @author lenovo
@@ -133,12 +131,11 @@ public interface LocalService {
     /**
      * 上传照片
      *
-     * @param part 文件
+     * @param body 文件
      * @return SalesSlip
      */
-    @Multipart
     @POST("upload_addPicture")
-    Observable<PictureUpLoadResult> upLoadPicture(@Part MultipartBody.Part part);
+    Observable<PictureUpLoadResult> upLoadPicture(@Body Picture body);
 
     /**
      * 加载库存信息

@@ -78,11 +78,12 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.5.4'
     //greenDao
     implementation 'org.greenrobot:greendao:3.2.2'
-    implementation ('com.github.hotchemi:permissionsdispatcher:3.2.0'){
-        exclude module: "support-v13"
-
-    }
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.2.0'
+    implementation 'pub.devrel:easypermissions:1.2.0'
+//    implementation ('com.github.hotchemi:permissionsdispatcher:3.2.0'){
+//        exclude module: "support-v13"
+//
+//    }
+//    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:3.2.0'
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.3'
     implementation 'com.idescout.sql:sqlscout-server:4.0'
     implementation files('libs/poi-3.17.jar')

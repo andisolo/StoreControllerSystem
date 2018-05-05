@@ -1,5 +1,6 @@
 package com.jjkj.administrator.storecontrollersystem.model;
 
+import android.util.Base64;
 import android.util.Log;
 
 import com.jjkj.administrator.storecontrollersystem.api.LocalService;
@@ -10,6 +11,7 @@ import com.jjkj.administrator.storecontrollersystem.bean.CustomerResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Goods;
 import com.jjkj.administrator.storecontrollersystem.bean.Person;
 import com.jjkj.administrator.storecontrollersystem.bean.PersonResult;
+import com.jjkj.administrator.storecontrollersystem.bean.Picture;
 import com.jjkj.administrator.storecontrollersystem.bean.PictureUpLoadResult;
 import com.jjkj.administrator.storecontrollersystem.bean.Result;
 import com.jjkj.administrator.storecontrollersystem.bean.SalesSlip;
@@ -18,13 +20,16 @@ import com.jjkj.administrator.storecontrollersystem.bean.StockResult;
 import com.jjkj.administrator.storecontrollersystem.db.DaoHelper;
 import com.jjkj.administrator.storecontrollersystem.utils.Retrofit2Utils;
 import com.jjkj.administrator.storecontrollersystem.utils.RxHelper;
+import com.jjkj.administrator.storecontrollersystem.view.base.BaseView;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,19 +37,16 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.functions.Function;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
+import top.zibin.luban.Luban;
 
 /**
  * @author Administrator
  */
-public class SalesBiz implements DaoHelper, RxHelper {
+public class SalesBiz implements DaoHelper, RxHelper, BaseView {
     private LocalService mLocalService = Retrofit2Utils.getServiceApiJson(LocalService.class);
 
     public void getOrders(Map<String, String> map, Observer<SlipResult> observer) {
@@ -171,26 +173,37 @@ public class SalesBiz implements DaoHelper, RxHelper {
     }
 
     public void upLoadPicture(Map<String, Object> map, Observer<Result> observer) {
-        File file = (File) map.get("file");
-        AfterSalesService salesService = new AfterSalesService();
-        salesService.setName((String) map.get("name"));
-        salesService.setCustomer((Customer) map.get("customer"));
-        RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part part = MultipartBody.Part
-                .createFormData("file", file.getName(), body);
-        mLocalService.upLoadPicture(part)
+
+
+        Observable.create((ObservableOnSubscribe<Picture>) emitter -> {
+            File file = new File((String) map.get("file"));
+            File file1 = Luban.with(getMyContext()).load(file).get(file.getPath());
+            Picture picture = new Picture();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            FileInputStream inputStream = new FileInputStream(file1);
+            byte[] buff = new byte[1024];
+            int len;
+            while ((len = inputStream.read(buff)) != -1) {
+                outputStream.write(buff, 0, len);
+            }
+            picture.setBase64(Base64.encodeToString(outputStream.toByteArray(),
+                    Base64.NO_WRAP));
+            if (file1.delete()) {
+                emitter.onNext(picture);
+                emitter.onComplete();
+            } else {
+                emitter.onError(new RuntimeException("文件删除失败"));
+            }
+        })
+                .flatMap((Function<Picture, ObservableSource<PictureUpLoadResult>>)
+                        picture -> mLocalService.upLoadPicture(picture))
                 .flatMap((Function<PictureUpLoadResult, ObservableSource<Result>>)
                         pictureUpLoadResult -> {
+                            AfterSalesService salesService = new AfterSalesService();
+                            salesService.setName((String) map.get("name"));
+                            salesService.setCustomer((Customer) map.get("customer"));
                             salesService.setPicture(pictureUpLoadResult.getPicture());
-                            return Observable.create(new ObservableOnSubscribe<Result>() {
-                                @Override
-                                public void subscribe(ObservableEmitter<Result> emitter) throws
-                                        Exception {
-                                    Result result = new Result();
-                                    result.setResult("ok");
-                                    emitter.onNext(result);
-                                }
-                            });
+                            return mLocalService.addCustomerService(salesService);
                         })
                 .compose(bindOb())
                 .subscribe(observer);

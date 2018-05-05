@@ -4,40 +4,13 @@ package com.jjkj.administrator.storecontrollersystem.bean;
  * @author Guo JiaMing
  */
 public class Picture {
-    private Customer customer;
-    private int id;
-    private String makeDate;
-    private Object picture;
+    private String base64;
 
-    public Customer getCustomer() {
-        return customer;
+    public String getBase64() {
+        return base64;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getMakeDate() {
-        return makeDate;
-    }
-
-    public void setMakeDate(String makeDate) {
-        this.makeDate = makeDate;
-    }
-
-    public Object getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Object picture) {
-        this.picture = picture;
+    public void setBase64(String base64) {
+        this.base64 = base64;
     }
 }
