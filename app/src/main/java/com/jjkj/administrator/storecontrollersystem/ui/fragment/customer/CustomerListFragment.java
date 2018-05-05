@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,7 +117,7 @@ public class CustomerListFragment extends BaseFragment<CustomerView, CustomerPre
     public void onCustomerLoadFailed(String info) {
         if (mGeneralSwl.isRefreshing()) {
             mGeneralSwl.setRefreshing(false);
-            
+
         }
     }
 
@@ -134,6 +135,7 @@ public class CustomerListFragment extends BaseFragment<CustomerView, CustomerPre
     @NeedsPermission({Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE})
     void getPermission() {
+        Log.i("CustomerListFragment", "getPermission");
     }
 
     @Override
