@@ -24,196 +24,220 @@ import io.reactivex.disposables.Disposable;
  * @author Administrator
  */
 public class MyInfoPresenter extends BasePresenter<MyInfoView> {
-    @Inject
-    NetWorkBiz mNetWorkBiz;
-    @Inject
-    SalesBiz mSalesBiz;
-    @Inject
-    CompositeDisposable mDisposable;
+	@Inject
+	NetWorkBiz mNetWorkBiz;
+	@Inject
+	SalesBiz mSalesBiz;
+	@Inject
+	CompositeDisposable mDisposable;
 
-    public void getPosBalaceDate(String storeNumber) {
-        mNetWorkBiz.getPosBalaceDate(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void getPosBalaceDate(String storeNumber) {
+		mNetWorkBiz.getPosBalaceDate(new Observer<String>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(String s) {
-                getMvpView().onLoadStringData(s);
-            }
+			@Override
+			public void onNext(String s) {
+				getMvpView().onLoadStringData(s);
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().onLoadStringData(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().onLoadStringData(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
+			@Override
+			public void onComplete() {
 
-            }
-        }, storeNumber);
-    }
+			}
+		}, storeNumber);
+	}
 
-    public void writePosBalanceDate(String storeNumber) {
-        mNetWorkBiz.writePosBalanceDate(new Observer<String>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void writePosBalanceDate(String storeNumber) {
+		mNetWorkBiz.writePosBalanceDate(new Observer<String>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(String s) {
-                getMvpView().onLoadStringData(s);
-            }
+			@Override
+			public void onNext(String s) {
+				getMvpView().onLoadStringData(s);
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().onLoadStringData(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().onLoadStringData(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
+			@Override
+			public void onComplete() {
 
-            }
-        }, storeNumber);
-    }
+			}
+		}, storeNumber);
+	}
 
-    public void getGoods(InputStream in) {
-        mSalesBiz.getGoods(new Observer<Map<String, Goods>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void getGoods(InputStream in) {
+		mSalesBiz.getGoods(new Observer<Map<String, Goods>>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(Map<String, Goods> o) {
-                getMvpView().onGetGoods(o);
-            }
+			@Override
+			public void onNext(Map<String, Goods> o) {
+				getMvpView().onGetGoods(o);
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().onLoadStringData(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().onLoadStringData(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
+			@Override
+			public void onComplete() {
 
-            }
-        }, in);
-    }
+			}
+		}, in);
+	}
 
-    public void saveOrders(SalesSlip slip) {
-        mSalesBiz.saveOrders(slip, new Observer<Result>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void saveOrders(SalesSlip slip) {
+		mSalesBiz.saveOrders(slip, new Observer<Result>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(Result result) {
-                getMvpView().showInfo(result.getResult());
-            }
+			@Override
+			public void onNext(Result result) {
+				getMvpView().showInfo(result.getResult());
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().showInfo(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
-                getMvpView().showInfo("成功保存");
-            }
-        });
-    }
+			@Override
+			public void onComplete() {
+				getMvpView().showInfo("成功保存");
+			}
+		});
+	}
 
-    public void loadMyInfo(Map<String, String> map) {
-        mSalesBiz.loadMyInfo(map, new Observer<PersonResult>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void loadMyInfo(Map<String, String> map) {
+		mSalesBiz.loadMyInfo(map, new Observer<PersonResult>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(PersonResult personResult) {
-                getMvpView().onGetPerson(personResult);
-            }
+			@Override
+			public void onNext(PersonResult personResult) {
+				getMvpView().onGetPerson(personResult);
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().showInfo(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
-                getMvpView().showInfo("加载成功");
-            }
-        });
-    }
+			@Override
+			public void onComplete() {
+				getMvpView().showInfo("加载成功");
+			}
+		});
+	}
 
-    public void updateOrSaveMyself(Map<String, String> map) {
-        mSalesBiz.updateOrSaveMyself(map, new Observer<Result>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void updateOrSaveMyself(Map<String, String> map) {
+		mSalesBiz.updateOrSaveMyself(map, new Observer<Result>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(Result personResult) {
-                getMvpView().showInfo(personResult.getResult());
-            }
+			@Override
+			public void onNext(Result personResult) {
+				getMvpView().showInfo(personResult.getResult());
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().showInfo(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
-                getMvpView().showInfo("注册成功");
-            }
-        });
-    }
+			@Override
+			public void onComplete() {
+				getMvpView().showInfo("注册成功");
+			}
+		});
+	}
 
-    public void loadVipInfo(String phone) {
-        getMvpView().showInfo("开始加载会员信息");
-        Map<String, String> map = new HashMap<>(1);
-        map.put("phone", phone);
-        mSalesBiz.loadVipInfo(map, new Observer<CustomerResult>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                mDisposable.add(d);
-            }
+	public void loadVipInfo(String phone) {
+		getMvpView().showInfo("开始加载会员信息");
+		Map<String, String> map = new HashMap<>(1);
+		map.put("phone", phone);
+		mSalesBiz.loadVipInfo(map, new Observer<CustomerResult>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-            @Override
-            public void onNext(CustomerResult result) {
-                if (result.getCustomer().size() > 0) {
-                    getMvpView().onLoadStringData(result.getCustomer().get(0).getName());
-                }
-            }
+			@Override
+			public void onNext(CustomerResult result) {
+				if (result.getCustomer().size() > 0) {
+					getMvpView().onLoadStringData(result.getCustomer().get(0).getName());
+				}
+			}
 
-            @Override
-            public void onError(Throwable e) {
-                getMvpView().showInfo(e.getLocalizedMessage());
-            }
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().showInfo(e.getLocalizedMessage());
+			}
 
-            @Override
-            public void onComplete() {
-                getMvpView().showInfo("加载成功");
-            }
-        });
-    }
+			@Override
+			public void onComplete() {
+				getMvpView().showInfo("加载成功");
+			}
+		});
+	}
 
-    @Override
-    public void detachView() {
-        if (mDisposable != null) {
-            mDisposable.clear();
-        }
-        super.detachView();
-    }
+	public void uploadPicture(Map<String, String> map) {
+		mSalesBiz.upLoadMyPicture(map, new Observer<Result>() {
+			@Override
+			public void onSubscribe(Disposable d) {
+				mDisposable.add(d);
+			}
 
-    @Override
-    protected void initInject() {
-        getComponent().inject(this);
-    }
+			@Override
+			public void onNext(Result result) {
+				getMvpView().showInfo(result.getResult());
+			}
+
+			@Override
+			public void onError(Throwable e) {
+				getMvpView().showInfo(e.getLocalizedMessage());
+			}
+
+			@Override
+			public void onComplete() {
+				getMvpView().showInfo("上传成功");
+			}
+		});
+	}
+
+	@Override
+	public void detachView() {
+		if (mDisposable != null) {
+			mDisposable.clear();
+		}
+		super.detachView();
+	}
+
+	@Override
+	protected void initInject() {
+		getComponent().inject(this);
+	}
 }

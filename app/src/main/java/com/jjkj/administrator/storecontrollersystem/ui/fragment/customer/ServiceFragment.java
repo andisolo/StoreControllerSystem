@@ -29,65 +29,61 @@ import butterknife.Unbinder;
  * @author Guo JiaMing
  */
 public class ServiceFragment extends BaseFragment<CustomerView, CustomerPresenter>
-        implements CustomerView {
+		implements CustomerView {
 
-    Unbinder unbinder;
-    @BindView(R.id.service_rcv)
-    RecyclerView mServiceRcv;
-    @BindView(R.id.service_swl)
-    SwipeRefreshLayout mServiceSwl;
-    private CustomerServiceAdapter mAdapter;
+	Unbinder unbinder;
+	@BindView(R.id.service_rcv)
+	RecyclerView mServiceRcv;
+	@BindView(R.id.service_swl)
+	SwipeRefreshLayout mServiceSwl;
+	private CustomerServiceAdapter mAdapter;
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle sedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_service, container, false);
-        unbinder = ButterKnife.bind(this, view);
-        initView();
-        return view;
-    }
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+	                         @Nullable Bundle sedInstanceState) {
+		View view = inflater.inflate(R.layout.fragment_service, container, false);
+		unbinder = ButterKnife.bind(this, view);
+		initView();
+		return view;
+	}
 
-    private void initView() {
-        mServiceRcv.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter = new CustomerServiceAdapter(R.layout
-                .item_for_customer_service_rcv, new ArrayList<>());
-        mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
-        mAdapter.isFirstOnly(false);
-        mServiceRcv.setAdapter(mAdapter);
-        mServiceSwl.setOnRefreshListener(() -> getPresenter().loadCustomerService());
-    }
+	private void initView() {
+		mServiceRcv.setLayoutManager(new LinearLayoutManager(getContext()));
+		mAdapter = new CustomerServiceAdapter(R.layout
+				.item_for_customer_service_rcv, new ArrayList<>());
+		mAdapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+		mAdapter.isFirstOnly(false);
+		mServiceRcv.setAdapter(mAdapter);
+		mServiceSwl.setOnRefreshListener(() -> getPresenter().loadCustomerService());
+		getPresenter().loadCustomerService();
+	}
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPresenter().loadCustomerService();
-    }
 
-    @Override
-    public void onCustomerLoad(AfterSalesServiceResult result) {
-        if (mServiceSwl.isRefreshing()) {
-            mServiceSwl.setRefreshing(false);
-        }
-        mAdapter.replaceData(result.getCustomer());
-    }
+	@Override
+	public void onCustomerLoad(AfterSalesServiceResult result) {
+		if (mServiceSwl.isRefreshing()) {
+			mServiceSwl.setRefreshing(false);
+		}
+		mAdapter.replaceData(result.getCustomer());
+	}
 
-    @Override
-    public void onCustomerLoadFailed(String info) {
-        if (mServiceSwl.isRefreshing()) {
-            mServiceSwl.setRefreshing(false);
-        }
-        ToastUtils.showToast(getContext(), info);
-    }
+	@Override
+	public void onCustomerLoadFailed(String info) {
+		if (mServiceSwl.isRefreshing()) {
+			mServiceSwl.setRefreshing(false);
+		}
+		ToastUtils.showToast(getContext(), info);
+	}
 
-    @Override
-    protected void initInject() {
-        getComponent().inject(this);
-    }
+	@Override
+	protected void initInject() {
+		getComponent().inject(this);
+	}
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		unbinder.unbind();
+	}
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Store Controller System</string>
+    <string name="app_name">樊文花店铺管理系统</string>
     <string name="user_name">这里输入用户名</string>
     <string name="password">这里输入密码</string>
     <string name="login">登录</string>
